@@ -71,6 +71,23 @@
     }
 }
 
+.flowing-dash {
+    animation-name: flowing-dash;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: stroke-dashoffset;
+}
+
+@keyframes flowing-dash {
+    0% {
+        stroke-dashoffset: 0;
+    }
+
+    100% {
+        stroke-dashoffset: calc(var(--dash-gap, 16) * -1px);
+    }
+}
+
 * {
     box-sizing: border-box;
 }

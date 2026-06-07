@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import Button from '../../ui/Button'
-import curriculoPdf from '../../../assets/curriculo_eduardo_octávio.pdf'
+import curriculoPdf from '../../../assets/curriculo_eduardo_octavio.pdf'
 
 import { Icon } from '../../ui/Icon'
 

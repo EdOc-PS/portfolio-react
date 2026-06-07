@@ -1,5 +1,5 @@
 import Button from '@/components/ui/Button'
-import curriculoPdf from '@/assets/curriculo_eduardo_octávio.pdf'
+import curriculoPdf from '@/assets/curriculo_eduardo_octavio.pdf'
 
 import { Icon } from '@/components/ui/Icon'
 import Reveal from '@/components/ui/Reveal'

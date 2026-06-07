@@ -1,4 +1,6 @@
+import { useMemo } from "react";
 import { Icon } from "../Icon";
+import { pickRandomProjectIcon } from "./projectIcons";
 
 interface ProjectsCardProps {
     title?: string;
@@ -8,6 +10,8 @@ interface ProjectsCardProps {
 }
 
 const ProjectCard = ({ title, id, viewModal, getDetails }: ProjectsCardProps) => {
+    const ProjectIcon = useMemo(() => pickRandomProjectIcon(), []);
+
     const handleActiveModal = () => {
         viewModal(true);
         getDetails(id);
@@ -16,7 +20,7 @@ const ProjectCard = ({ title, id, viewModal, getDetails }: ProjectsCardProps) =>
     return (
         <div
             onClick={handleActiveModal}
-            className="group relative flex flex-col justify-between w-full h-56 p-6 rounded-2xl cursor-pointer overflow-hidden
+            className="group relative flex flex-col justify-between w-full h-44 p-6 rounded-2xl cursor-pointer overflow-hidden
                        bg-[#FFFFFF0A] border border-[#FFFFFF1F]
                        shadow-[inset_0_1px_0_#FFFFFF1A,0_10px_24px_#00000038]
                        transition-all duration-300 ease-out
@@ -25,14 +29,9 @@ const ProjectCard = ({ title, id, viewModal, getDetails }: ProjectsCardProps) =>
             {/* Brilho radial no hover */}
             <div className="pointer-events-none absolute -top-16 -right-16 w-40 h-40 rounded-full bg-indigo-400/0 blur-2xl transition-all duration-500 group-hover:bg-indigo-400/20" />
 
-            {/* Topo: ícone */}
-            <div className="relative flex items-center justify-between">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FFFFFF14] border border-[#FFFFFF24] transition-colors duration-300 group-hover:bg-indigo-400/20 group-hover:border-indigo-300/40">
-                    <Icon name="SourceCodeIcon" size={22} color="#d1cfc0" />
-                </div>
-                <span className="text-xs font-medium text-gray-edoc-500/40 uppercase tracking-wider">
-                    Projeto
-                </span>
+            {/* Topo: ícone aleatório por projeto */}
+            <div className="relative text-indigo-300">
+                <ProjectIcon size={40} />
             </div>
 
             {/* Base: título + CTA */}
