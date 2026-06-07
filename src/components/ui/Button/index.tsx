@@ -8,10 +8,11 @@ interface Props {
     variant?: "primary" | "secondary" | "liquidGlass"   
     icon?: keyof typeof Icons;
     isFullWidth?: boolean;
+    disableHoverScale?: boolean;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function Button({ children, icon, variant = "primary", isFullWidth = false, onClick }: Props) {
+export default function Button({ children, icon, variant = "primary", isFullWidth = false, disableHoverScale = false, onClick }: Props) {
     const variantStyles = {
         primary: "bg-gray-edoc-500 text-neutral-edoc-500",
         secondary: "bg-white-500 text-gray-edoc-500",
@@ -25,9 +26,9 @@ export default function Button({ children, icon, variant = "primary", isFullWidt
     } as const;
 
     return (
-        <button 
+        <button
             onClick={onClick}
-            className={`${variantStyles[variant]} ${isFullWidth ? 'w-full justify-center' : ''} 
+            className={`${variantStyles[variant]} ${isFullWidth ? 'w-full justify-center' : ''} ${disableHoverScale ? '' : 'hover:scale-110'}
                         rounded-xl py-3.5 px-5 cursor-pointer flex items-center gap-3 font-medium transition-all duration-300 `}>
             <>
                 {children}
