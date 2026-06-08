@@ -80,7 +80,7 @@ const Technology = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center flex-col gap-8 sm:gap-10">
                 <Reveal className="w-full">
                     <div className="relative w-fit mx-auto mb-8 sm:mb-10">
-                        <Sunburst opacity={0.35} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[320%]" />
+                        <Sunburst rays={14} opacity={0.35} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[320%]" />
                         <h1 className="relative font-garamond text-4xl sm:text-5xl lg:text-6xl font-bold text-center">
                             Tecnologias
                         </h1>
