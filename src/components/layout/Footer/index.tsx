@@ -5,7 +5,7 @@ const socials = [
     { icon: "Github01Icon", href: "https://github.com/EdOc-PS", label: "GitHub" },
     { icon: "InstagramIcon", href: "https://www.instagram.com/", label: "Instagram" },
     { icon: "Linkedin01Icon", href: "https://www.linkedin.com/in/eduardo-octavio/", label: "LinkedIn" },
-    { icon: "Mail02Icon", href: "https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=euardooctavio@gmail.com", label: "E-mail" },
+    { icon: "Mail02Icon", href: "https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=eeuardooctavio@gmail.com", label: "E-mail" },
 ] as const
 
 const navLinks = [

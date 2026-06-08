@@ -1,6 +1,7 @@
 import Badge from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
 import Reveal from "@/components/ui/Reveal";
+import Sunburst from "@/components/ui/Sunburst";
 
 const devTechs = [
     "HTML5",
@@ -78,9 +79,12 @@ const Technology = () => {
         <section id="technology" className="py-24 sm:py-32 lg:py-40 w-full">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center flex-col gap-8 sm:gap-10">
                 <Reveal className="w-full">
-                    <h1 className="font-garamond text-4xl sm:text-5xl lg:text-6xl font-bold text-center mb-2">
-                        Tecnologias
-                    </h1>
+                    <div className="relative w-fit mx-auto mb-8 sm:mb-10">
+                        <Sunburst opacity={0.35} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[320%]" />
+                        <h1 className="relative font-garamond text-4xl sm:text-5xl lg:text-6xl font-bold text-center">
+                            Tecnologias
+                        </h1>
+                    </div>
                     <p className="w-full max-w-lg mx-auto text-sm sm:text-base text-center">
                         Aqui estão algumas das tecnologias e ferramentas que domino, cada uma representando um passo na minha jornada de aprendizado e desenvolvimento como profissional de tecnologia.
                     </p>

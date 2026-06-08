@@ -39,9 +39,9 @@ const ProjectCard = ({ title, id, viewModal, getDetails }: ProjectsCardProps) =>
                 <h1 className="text-2xl font-bold text-gray-edoc-500 leading-tight">
                     {title}
                 </h1>
-                <div className="flex items-center gap-2 text-sm font-medium text-indigo-300 transition-all duration-300 group-hover:gap-3">
+                <div className="flex items-center gap-2 text-sm font-medium text-gray-edoc-500/70 transition-all duration-300 group-hover:gap-3">
                     <span>Ver detalhes</span>
-                    <Icon name="ArrowRight01Icon" size={18} color="#a5b4fc" />
+                    <Icon name="ArrowRight01Icon" size={18} color="#d1cfc0" />
                 </div>
             </div>
         </div>

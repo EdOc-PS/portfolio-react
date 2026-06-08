@@ -45,7 +45,7 @@ const Home = () => {
                         </div></li>
 
                         <li><div className="icon-wrapper">
-                            <Link target="_blank" to="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=euardooctavio@gmail.com">
+                            <Link target="_blank" to="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=eeuardooctavio@gmail.com">
                                 <Icon name="Mail02Icon" size={20} color="text-gray-500" />
                             </Link>
                         </div></li>
