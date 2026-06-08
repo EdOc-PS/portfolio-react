@@ -31,7 +31,7 @@ const Projects = () => {
     const getProjects = async () => {
         setLoading(true);
         try {
-            const response = await GetRequest("http://localhost:5000/projects");
+            const response = await GetRequest("/api/projects");
 
             if (!response.success) {
                 console.error("Ocorreu um erro ao obter os projetos.");
@@ -48,7 +48,7 @@ const Projects = () => {
     const getDetails = async (id: string) => {
         setLoading(true);
         try {
-            const response = await GetRequest(`http://localhost:5000/projects/${id}`);
+            const response = await GetRequest(`/api/projects/${id}`);
 
             if (!response.success) {
                 console.error("Ocorreu um erro ao obter os detalhes do projeto.");
