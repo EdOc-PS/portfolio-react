@@ -9,4 +9,4 @@ const ProjectSchema = new mongoose.Schema({
 });
 
 export default mongoose.models.Project ||
-  mongoose.model("projects", ProjectSchema);
+  mongoose.model("Project", ProjectSchema);
