@@ -1,10 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Patrick+Hand&display=swap');
 @import "tailwindcss";
 
 @theme {
     --color-white-500: #FFFFFF1A;
     --color-neutral-edoc-500: #1f1f1f;
     --color-gray-edoc-500: #d1cfc0;
+    --color-indigo-edoc-500: #a3b3ff;
+
+    --font-patrick: 'Patrick Hand', cursive;
+    --font-garamond: 'EB Garamond', serif;
 }
 
 
@@ -45,6 +50,41 @@
 
     100% {
         background-position: -200% 0;
+    }
+}
+
+.scribble-float {
+    animation-name: scribble-float;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    will-change: transform;
+}
+
+@keyframes scribble-float {
+    0% {
+        transform: translateY(0) rotate(var(--rot, 0deg));
+    }
+
+    100% {
+        transform: translateY(-18px) rotate(calc(var(--rot, 0deg) + 8deg));
+    }
+}
+
+.flowing-dash {
+    animation-name: flowing-dash;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: stroke-dashoffset;
+}
+
+@keyframes flowing-dash {
+    0% {
+        stroke-dashoffset: 0;
+    }
+
+    100% {
+        stroke-dashoffset: calc(var(--dash-gap, 16) * -1px);
     }
 }
 
