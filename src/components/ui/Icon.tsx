@@ -1,13 +1,21 @@
 import React from "react";
-import * as Icons from "hugeicons-react";
+import { Icon as IconifyIcon } from "@iconify/react/dist/offline";
+import type { IconifyIcon as IconifyIconData } from "@iconify/react/dist/offline";
 
 interface IconProps {
-    name: keyof typeof Icons;
+    icon: IconifyIconData;
     color?: string;
     size?: number;
 }
 
-export const Icon: React.FC<IconProps> = ({ name, color = "#000", size = 24 }) => {
-    const HugeIcon = Icons[name];
-    return <HugeIcon color={color} size={size} style={{ flexShrink: 0 }}/>;
+export const Icon: React.FC<IconProps> = ({ icon, color = "currentColor", size = 24 }) => {
+    return (
+        <IconifyIcon
+            icon={icon}
+            color={color}
+            width={size}
+            height={size}
+            style={{ flexShrink: 0 }}
+        />
+    );
 };

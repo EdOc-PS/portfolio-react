@@ -1,90 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap');
 @import "tailwindcss";
 
 @theme {
-    --color-white-500: #FFFFFF1A;
-    --color-neutral-edoc-500: #1f1f1f;
-    --color-gray-edoc-500: #d1cfc0;
-    --color-indigo-edoc-500: #a3b3ff;
+    /* Base — light theme */
+    --color-base-bg: #FBF9EF;
+    --color-base-ink: #1F1F1F;
+    /* Preto do sistema adaptado pro glassmorfismo: mais claro, pra ficar legível sobre o vidro azulado */
+    --color-ink-soft: color-mix(in srgb, var(--color-base-ink) 58%, var(--color-base-bg) 42%);
+    /* Branco do sistema adaptado pra texto secundário sobre fundo escuro */
+    --color-bg-soft: color-mix(in srgb, var(--color-base-bg) 55%, var(--color-base-ink) 45%);
 
-    --font-patrick: 'Patrick Hand', cursive;
-    --font-garamond: 'EB Garamond', serif;
+    /* Vivas — principais */
+    --color-brand-purple: #4635B1;
+    --color-brand-blue: #45CFDD;
+
+    /* Vivas — complementares */
+    --color-brand-purple-soft: #9681EB;
+    --color-brand-blue-soft: #A7EDE7;
+
+    /* Fontes */
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-display: 'Poppins', sans-serif;
 }
-
 
 @layer components {
-    .icon-wrapper {
-        @apply p-2.5 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-110;
-        background: #FFFFFF1F;
-        border: 1px solid #FFFFFF59;
-        backdrop-filter: blur(16px);
-        box-shadow: inset 0 1px 0 #FFFFFF73, 0 10px 24px #00000038;
+    /* Glassmorphismo padrão do projeto: sem borda, sem sombra, cinza com leve toque de azul */
+    .glass {
+        background: color-mix(in srgb, var(--color-base-ink) 10%, color-mix(in srgb, var(--color-brand-blue) 4%, transparent));
+        backdrop-filter: blur(20px) saturate(140%);
+        -webkit-backdrop-filter: blur(20px) saturate(140%);
     }
 
-    .icon-wrapper:hover {
-        background: #FFFFFF2E;
-        border-color: #FFFFFF80;
-    }
-
-    .skeleton-shimmer {
-        position: relative;
-        overflow: hidden;
-        border: 1px solid #FFFFFF1D;
-        background-color: #FFFFFF1A;
-        background-image: linear-gradient(110deg,
-            rgba(255, 255, 255, 0) 35%,
-            rgba(255, 255, 255, 0.0375) 50%,
-            rgba(255, 255, 255, 0) 65%);
-        background-size: 200% 100%;
-        animation: skeleton-shimmer 3.1s linear infinite;
-        will-change: background-position;
-    }
-
-}
-
-@keyframes skeleton-shimmer {
-    0% {
-        background-position: 200% 0;
-    }
-
-    100% {
-        background-position: -200% 0;
-    }
-}
-
-.scribble-float {
-    animation-name: scribble-float;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    will-change: transform;
-}
-
-@keyframes scribble-float {
-    0% {
-        transform: translateY(0) rotate(var(--rot, 0deg));
-    }
-
-    100% {
-        transform: translateY(-18px) rotate(calc(var(--rot, 0deg) + 8deg));
-    }
-}
-
-.flowing-dash {
-    animation-name: flowing-dash;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    will-change: stroke-dashoffset;
-}
-
-@keyframes flowing-dash {
-    0% {
-        stroke-dashoffset: 0;
-    }
-
-    100% {
-        stroke-dashoffset: calc(var(--dash-gap, 16) * -1px);
+    /* Variante do glassmorfismo pra fundos escuros (ex: Footer): neutro, sem tom azulado */
+    .glass-dark {
+        background: color-mix(in srgb, var(--color-base-bg) 14%, transparent);
+        backdrop-filter: blur(20px) saturate(120%);
+        -webkit-backdrop-filter: blur(20px) saturate(120%);
     }
 }
 
@@ -93,7 +44,14 @@
 }
 
 body {
-    font-family: "Bricolage Grotesque", sans-serif;
-    color: var(--color-gray-edoc-500);
-    background-color: var(--color-neutral-edoc-500);
+    font-family: var(--font-body);
+    font-size: 18px;
+    color: var(--color-base-ink);
+    background-color: var(--color-base-bg);
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }

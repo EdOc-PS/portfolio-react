@@ -1,16 +1,39 @@
+import { useEffect, useRef, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Main from './pages/main';
-import ScribbleBackground from './components/ui/ScribbleBackground';
+import Sidebar from './components/layout/Sidebar';
+import MobileHeader from './components/layout/MobileHeader';
+import Footer from './components/layout/Footer';
+import MainRoutes from './routes/MainRoutes';
 
 export default function App() {
+  const footerRef = useRef<HTMLDivElement>(null);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+
+  useEffect(() => {
+    const footerEl = footerRef.current;
+    if (!footerEl) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsFooterVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+
+    observer.observe(footerEl);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <BrowserRouter>
-      <main className='relative min-h-screen bg-neutral-edoc-500 flex flex-col items-center overflow-hidden'>
-        {/* Rabiscos decorativos no fundo (laterais) */}
-        <ScribbleBackground count={18} variant="sides" className="fixed z-0" />
+      <main className='relative min-h-screen bg-base-bg text-base-ink flex flex-col'>
+        <Sidebar overFooter={isFooterVisible} />
+        <MobileHeader />
 
-        <div className="relative z-10 w-full flex flex-col items-center">
-          <Main />
+        <div className="relative flex-1 pt-24 md:pt-0 md:px-32 w-full">
+          <MainRoutes />
+        </div>
+
+        <div ref={footerRef}>
+          <Footer />
         </div>
       </main>
     </BrowserRouter>

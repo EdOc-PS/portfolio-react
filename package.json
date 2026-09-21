@@ -10,13 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@iconify-icons/simple-icons": "^2.0.4",
+    "@iconify-icons/solar": "^2.0.3",
+    "@iconify/react": "^6.0.2",
     "@tailwindcss/vite": "^4.1.18",
-    "hugeicons-react": "^0.4.0",
     "mongoose": "^9.6.3",
+    "motion": "^13.4.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.0",
-    "simple-icons": "^16.9.0",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
