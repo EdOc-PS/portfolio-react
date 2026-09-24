@@ -5,9 +5,10 @@ import type { Project } from "@/pages/work/projects"
 interface ProjectCardProps {
     project: Project
     className?: string
+    tag?: string
 }
 
-const ProjectCard = ({ project, className = "" }: ProjectCardProps) => {
+const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
     return (
         <a
             href="#"
@@ -21,6 +22,14 @@ const ProjectCard = ({ project, className = "" }: ProjectCardProps) => {
             />
 
             <div className="absolute inset-0 bg-base-ink/10 transition-colors duration-500 group-hover:bg-base-ink/30" />
+
+            {tag && (
+                <div className="glass-dark absolute right-4 top-4 rounded-full px-4 py-2">
+                    <span className="text-xs font-bold uppercase tracking-wide text-base-bg" style={{ fontFamily: "var(--font-display)" }}>
+                        {tag}
+                    </span>
+                </div>
+            )}
 
             <div className="glass-dark absolute left-4 top-4 flex items-center gap-2 rounded-full px-4 py-2">
                 <span className="text-sm font-bold text-base-bg" style={{ fontFamily: "var(--font-display)" }}>
