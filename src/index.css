@@ -18,6 +18,12 @@
     --color-brand-purple-soft: #9681EB;
     --color-brand-blue-soft: #A7EDE7;
 
+    /* Acentos — cores sólidas extraídas dos stickers (uso pontual, gradiente ocasional) */
+    --color-accent-green: #2FD48B;
+    --color-accent-blue: #5B9BEA;
+    --color-accent-orange: #F2994A;
+    --color-accent-pink: #F2618C;
+
     /* Fontes */
     --font-body: 'Plus Jakarta Sans', sans-serif;
     --font-display: 'Poppins', sans-serif;
@@ -26,7 +32,7 @@
 @layer components {
     /* Glassmorphismo padrão do projeto: sem borda, sem sombra, cinza com leve toque de azul */
     .glass {
-        background: color-mix(in srgb, var(--color-base-ink) 10%, color-mix(in srgb, var(--color-brand-blue) 4%, transparent));
+        background: color-mix(in srgb, var(--color-base-ink) 18%, color-mix(in srgb, var(--color-brand-blue) 2%, transparent));
         backdrop-filter: blur(20px) saturate(140%);
         -webkit-backdrop-filter: blur(20px) saturate(140%);
     }
@@ -48,6 +54,15 @@ body {
     font-size: 18px;
     color: var(--color-base-ink);
     background-color: var(--color-base-bg);
+}
+
+/* Esconde a scrollbar nativa — navegação vertical é sinalizada só pelo ScrollIndicator */
+html {
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
 }
 
 h1, h2, h3, h4 {

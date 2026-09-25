@@ -1,28 +1,83 @@
+import { NavLink } from "react-router-dom"
+import { motion } from "motion/react"
 import arrowDownBoldDuotone from "@iconify-icons/solar/arrow-down-bold-duotone"
+import arrowRightUpBoldDuotone from "@iconify-icons/solar/arrow-right-up-bold-duotone"
 import { Icon } from "@/components/ui/Icon"
 import ProjectCard from "@/components/ui/ProjectCard"
 import { PROJECTS } from "@/pages/work/projects"
+import lightbulbSticker from "@/assets/stickers/product.png"
+import trophySticker from "@/assets/stickers/trophy.png"
 
 const Work = () => {
     return (
         <div className="min-h-screen w-full bg-base-bg">
-            {/* Hero — só texto por enquanto; vai receber stickers depois */}
-            <section className="flex min-h-[70vh] w-full flex-col items-center justify-center gap-6 px-6 py-16 text-center">
+            {/* Hero */}
+            <section className="relative flex min-h-screen w-full flex-col items-center justify-between gap-6 px-6 pt-10 pb-10 text-center">
                 <h1
-                    className="text-7xl sm:text-8xl md:text-9xl font-extrabold leading-[0.95]"
+                    className="text-7xl sm:text-8xl md:text-9xl font-extrabold leading-[0.95] text-base-ink"
                     style={{ fontFamily: "var(--font-display)" }}
                 >
-                    <span className="text-base-ink">Work</span>
+                    <span className="inline-flex items-center gap-3">
+                        Boas ideias
+                        <motion.img
+                            src={lightbulbSticker}
+                            alt=""
+                            aria-hidden
+                            className="pointer-events-none inline-block w-20 select-none sm:w-24 md:w-28"
+                            animate={{ y: [0, -10, 0], rotate: [-6, 2, -6] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                    </span>
+                    <br />
+                    <span className="text-ink-soft">começam por aqui</span>
                 </h1>
+
+                <div className="relative flex flex-col items-center gap-4">
+                    <motion.div
+                        aria-hidden
+                        className="pointer-events-none absolute left-1/2 top-[78%] h-14 w-52 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-xl"
+                        style={{ background: "var(--color-accent-pink)" }}
+                        animate={{ x: ["-46%", "-54%", "-46%"], scale: [1, 1.1, 1] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                    />
+
+                    <motion.div
+                        aria-hidden
+                        className="pointer-events-none absolute left-1/2 top-[78%] h-14 w-52 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-xl"
+                        style={{ background: "var(--color-brand-blue)" }}
+                        animate={{ x: ["-54%", "-46%", "-54%"], scale: [1.05, 0.95, 1.05] }}
+                        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                    />
+
+                    <p className="relative max-w-2xl text-3xl text-ink-soft" style={{ fontFamily: "var(--font-body)" }}>
+                        <span className="mb-2 block text-lg font-bold text-base-ink">Albert Einstein</span>
+                        “A imaginação é mais importante que o conhecimento, porque o conhecimento é limitado, ao passo que a imaginação abrange o mundo inteiro.”
+                    </p>
+
+                    <NavLink
+                        to="/contact"
+                        className="glass relative flex items-center gap-3 rounded-full px-6 py-3 text-base font-bold text-base-ink transition-transform duration-300 hover:scale-105"
+                        style={{ fontFamily: "var(--font-display)" }}
+                    >
+                        Entre em contato
+                        <Icon icon={arrowRightUpBoldDuotone} size={18} />
+                    </NavLink>
+                </div>
             </section>
 
             {/* Projeto em destaque */}
-            <section className="mx-auto flex w-full max-w-[85rem] flex-col px-6 sm:px-10 pb-16">
+            <section className="relative mx-auto flex w-full max-w-[85rem] flex-col px-6 sm:px-10 pt-16 pb-16">
+                <img
+                    src={trophySticker}
+                    alt=""
+                    aria-hidden
+                    className="pointer-events-none absolute -right-2 top-2 z-10 w-20 rotate-6 select-none sm:w-24"
+                />
                 <ProjectCard project={PROJECTS[0]} tag="Projeto em destaque" className="aspect-4/3 sm:aspect-21/9" />
             </section>
 
             {/* Texto + estatísticas */}
-            <section className="mx-auto flex w-full max-w-[85rem] flex-col items-center gap-6 px-6 sm:px-10 pt-10 pb-24 text-center">
+            <section className="mx-auto flex w-full max-w-[85rem] flex-col items-center gap-6 px-6 sm:px-10 pt-32 pb-32 text-center">
                 <h2
                     className="text-6xl sm:text-7xl md:text-8xl font-extrabold leading-[0.95]"
                     style={{ fontFamily: "var(--font-display)" }}

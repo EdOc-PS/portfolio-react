@@ -40,6 +40,24 @@ Escopo: só front (`portfolio-react`). `portfolio-node` e `portfolio-react/api` 
 - Roxo complementar (secundário): `#9681EB`
 - Azul complementar (secundário): `#A7EDE7`
 
+## Cores de acento (stickers)
+- 4 cores sólidas extraídas da paleta de gradientes dos stickers de referência (estilo "gradient sticker illustration", ex: Freepik/Storyset "Gradient"), pra usar de forma pontual em cada sticker/elemento decorativo — não substituem roxo/azul de marca, são complementares:
+  - Verde: `#2FD48B`
+  - Azul (sticker): `#5B9BEA`
+  - Laranja: `#F2994A`
+  - Rosa: `#F2618C`
+- Uso: sólido por padrão; gradiente (entre 2 desses tons, ou tom+variante) só em ocasiões específicas, não como regra geral.
+
+## Stickers (estilo "gradient sticker illustration")
+- Estilo: contorno preto grosso + preenchimento sólido (cor de acento) + marcações tipo rabisco (linhas de movimento, pontinhos).
+- Fonte recomendada: Freepik/Storyset "Gradient" ou Iconscout "Gradient Stickers" (adaptar preenchimento pra cor sólida da paleta acima).
+- Onde usar (1 por seção, nunca em grupo, pra não poluir):
+  - Hero da Work: 1 sticker pequeno perto do título
+  - Card "Projeto em destaque": 1 sticker no canto da badge
+  - About: 1 sticker perto da foto/bio
+  - Contact: 1 sticker perto do CTA
+  - Footer: opcional, perto do "Obrigado pela visita!"
+
 ## Imagens
 - Imagens do Google já baixadas existem no projeto, mas **não serão usadas ainda** nesta etapa de reformulação.
 
