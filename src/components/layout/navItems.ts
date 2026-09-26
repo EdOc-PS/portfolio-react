@@ -10,7 +10,7 @@ export interface NavItem {
 }
 
 export const NAV_ITEMS: NavItem[] = [
-    { to: "/work", label: "Work", icon: caseRoundBoldDuotone },
-    { to: "/about", label: "About", icon: userCircleBoldDuotone },
-    { to: "/contact", label: "Contact", icon: letterBoldDuotone },
+    { to: "/work", label: "Trabalho", icon: caseRoundBoldDuotone },
+    { to: "/about", label: "Sobre", icon: userCircleBoldDuotone },
+    { to: "/contact", label: "Contato", icon: letterBoldDuotone },
 ]

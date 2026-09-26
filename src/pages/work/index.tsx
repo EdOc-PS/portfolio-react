@@ -32,36 +32,22 @@ const Work = () => {
                     <span className="text-ink-soft">começam por aqui</span>
                 </h1>
 
-                <div className="relative flex flex-col items-center gap-4">
-                    <motion.div
-                        aria-hidden
-                        className="pointer-events-none absolute left-1/2 top-[78%] h-14 w-52 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-xl"
-                        style={{ background: "var(--color-accent-pink)" }}
-                        animate={{ x: ["-46%", "-54%", "-46%"], scale: [1, 1.1, 1] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                    />
-
-                    <motion.div
-                        aria-hidden
-                        className="pointer-events-none absolute left-1/2 top-[78%] h-14 w-52 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-xl"
-                        style={{ background: "var(--color-brand-blue)" }}
-                        animate={{ x: ["-54%", "-46%", "-54%"], scale: [1.05, 0.95, 1.05] }}
-                        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                    />
-
-                    <p className="relative max-w-2xl text-3xl text-ink-soft" style={{ fontFamily: "var(--font-body)" }}>
+                <div className="flex flex-col items-center gap-4">
+                    <p className="max-w-2xl text-3xl text-ink-soft" style={{ fontFamily: "var(--font-body)" }}>
                         <span className="mb-2 block text-lg font-bold text-base-ink">Albert Einstein</span>
                         “A imaginação é mais importante que o conhecimento, porque o conhecimento é limitado, ao passo que a imaginação abrange o mundo inteiro.”
                     </p>
 
-                    <NavLink
-                        to="/contact"
-                        className="glass relative flex items-center gap-3 rounded-full px-6 py-3 text-base font-bold text-base-ink transition-transform duration-300 hover:scale-105"
-                        style={{ fontFamily: "var(--font-display)" }}
-                    >
-                        Entre em contato
-                        <Icon icon={arrowRightUpBoldDuotone} size={18} />
-                    </NavLink>
+                    <div className="relative inline-flex items-center justify-center">
+                        <NavLink
+                            to="/contact"
+                            className="glass relative flex items-center gap-3 rounded-full px-6 py-3 text-base font-bold text-base-ink transition-transform duration-300 hover:scale-105"
+                            style={{ fontFamily: "var(--font-display)" }}
+                        >
+                            Entre em contato
+                            <Icon icon={arrowRightUpBoldDuotone} size={18} />
+                        </NavLink>
+                    </div>
                 </div>
             </section>
 

@@ -4,6 +4,7 @@ import Sidebar from './components/layout/Sidebar';
 import MobileHeader from './components/layout/MobileHeader';
 import ScrollIndicator from './components/layout/ScrollIndicator';
 import Footer from './components/layout/Footer';
+import ScrollToTop from './components/layout/ScrollToTop';
 import MainRoutes from './routes/MainRoutes';
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <main className='relative min-h-screen bg-base-bg text-base-ink flex flex-col'>
         <Sidebar overFooter={isFooterVisible} />
         <MobileHeader />

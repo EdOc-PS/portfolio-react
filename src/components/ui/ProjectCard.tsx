@@ -1,5 +1,5 @@
 import { useRef } from "react"
-import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "motion/react"
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react"
 import arrowRightUpBoldDuotone from "@iconify-icons/solar/arrow-right-up-bold-duotone"
 import { Icon } from "@/components/ui/Icon"
 import type { Project } from "@/pages/work/projects"
@@ -16,13 +16,9 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
     const mouseX = useMotionValue(0.5)
     const mouseY = useMotionValue(0.5)
 
-    const rotateX = useSpring(useTransform(mouseY, [0, 1], [7, -7]), { stiffness: 250, damping: 20 })
-    const rotateY = useSpring(useTransform(mouseX, [0, 1], [-7, 7]), { stiffness: 250, damping: 20 })
+    const rotateX = useSpring(useTransform(mouseY, [0, 1], [4, -4]), { stiffness: 250, damping: 20 })
+    const rotateY = useSpring(useTransform(mouseX, [0, 1], [-4, 4]), { stiffness: 250, damping: 20 })
     const scale = useSpring(1, { stiffness: 250, damping: 20 })
-
-    const spotlightX = useTransform(mouseX, (v) => `${v * 100}%`)
-    const spotlightY = useTransform(mouseY, (v) => `${v * 100}%`)
-    const spotlight = useMotionTemplate`radial-gradient(circle at ${spotlightX} ${spotlightY}, rgba(0,0,0,0.35), transparent 60%)`
 
     const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
         const rect = ref.current?.getBoundingClientRect()
@@ -54,14 +50,6 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
                 alt={project.name}
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-
-            <div className="absolute inset-0 bg-base-ink/10 transition-colors duration-500 group-hover:bg-base-ink/30" />
-
-            <motion.div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 opacity-0 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-100"
-                style={{ background: spotlight }}
             />
 
             {tag && (
