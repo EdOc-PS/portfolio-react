@@ -6,15 +6,20 @@ import closeBoldDuotone from "@iconify-icons/solar/close-bold-duotone"
 import { Icon } from "@/components/ui/Icon"
 import { NAV_ITEMS } from "@/components/layout/navItems"
 
-const MobileHeader = () => {
+interface MobileHeaderProps {
+    overFooter?: boolean
+}
+
+const MobileHeader = ({ overFooter = false }: MobileHeaderProps) => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
         <header className="md:hidden fixed top-0 left-0 w-full z-50">
-            <div className="glass flex items-center justify-between px-5 py-4">
+            <div className={`flex items-center justify-between px-5 py-4 ${overFooter ? "glass-dark" : "glass"}`}>
                 <NavLink
                     to="/"
-                    className="text-xl font-extrabold text-base-ink tracking-tight"
+                    className={`text-xl font-extrabold tracking-tight transition-colors duration-300 ${overFooter ? "text-base-bg" : "text-base-ink"
+                        }`}
                     style={{ fontFamily: "var(--font-display)" }}
                     onClick={() => setIsOpen(false)}
                 >
@@ -24,7 +29,8 @@ const MobileHeader = () => {
                 <button
                     type="button"
                     onClick={() => setIsOpen((prev) => !prev)}
-                    className="flex items-center gap-2 text-base-ink"
+                    className={`flex items-center gap-2 transition-colors duration-300 ${overFooter ? "text-base-bg" : "text-base-ink"
+                        }`}
                     aria-expanded={isOpen}
                     aria-label="Abrir menu"
                 >
@@ -55,7 +61,7 @@ const MobileHeader = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -12 }}
                         transition={{ type: "spring", stiffness: 320, damping: 28 }}
-                        className="glass mx-4 mt-2 flex flex-col gap-2 rounded-3xl p-3"
+                        className={`mx-4 mt-2 flex flex-col gap-2 rounded-3xl p-3 ${overFooter ? "glass-dark" : "glass"}`}
                     >
                         {NAV_ITEMS.map((item) => (
                             <NavLink
@@ -63,7 +69,7 @@ const MobileHeader = () => {
                                 to={item.to}
                                 onClick={() => setIsOpen(false)}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-3 rounded-2xl px-4 py-3 text-lg font-bold transition-colors duration-300 ${isActive ? "text-brand-purple" : "text-base-ink"
+                                    `flex items-center gap-3 rounded-2xl px-4 py-3 text-lg font-bold transition-colors duration-300 ${isActive ? "text-brand-purple" : overFooter ? "text-base-bg" : "text-base-ink"
                                     }`
                                 }
                                 style={{ fontFamily: "var(--font-display)" }}

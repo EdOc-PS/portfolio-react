@@ -12,9 +12,9 @@ const SOCIAL_LINKS = [
     { label: "E-mail", href: "mailto:eeuardooctavio@gmail.com", icon: letterBoldDuotone },
 ]
 
-const Footer = () => {
+const NotFound = () => {
     return (
-        <footer className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden bg-base-ink pt-16">
+        <div className="relative -mx-6 -mt-24 flex min-h-screen w-[calc(100%+3rem)] flex-col justify-between overflow-hidden bg-base-bg pt-16 sm:-mx-10 sm:w-[calc(100%+5rem)] md:-mx-32 md:mt-0 md:w-[calc(100%+16rem)]">
             <div
                 aria-hidden
                 className="absolute right-6 top-6 h-0.5 rounded-full md:right-10 md:top-10"
@@ -26,22 +26,32 @@ const Footer = () => {
 
             <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center gap-6 px-6 text-center">
                 <Reveal delay={0.24}>
-                    <h2
+                    <h1
                         className="text-7xl sm:text-8xl md:text-9xl font-extrabold leading-tight normal-case"
                         style={{ fontFamily: "var(--font-display)" }}
                     >
-                        <span className="text-base-bg">Obrigado</span>{" "}
-                        <span className="text-base-bg/50">pela visita!</span>
-                    </h2>
+                        <span className="text-base-ink">Nada</span>
+                        <br />
+                        <span className="text-ink-soft">por aqui.</span>
+                    </h1>
                 </Reveal>
 
-                <Reveal delay={0.16}>
+                <Reveal delay={0.18}>
+                    <p
+                        className="text-4xl font-normal text-ink-soft sm:text-5xl"
+                        style={{ fontFamily: "var(--font-display)" }}
+                    >
+                        404
+                    </p>
+                </Reveal>
+
+                <Reveal delay={0.1}>
                     <nav className="flex items-center gap-6 pt-2">
                         {NAV_ITEMS.map((item) => (
                             <NavLink
                                 key={item.to}
                                 to={item.to}
-                                className="flex items-center gap-2 text-base font-bold text-bg-soft transition-colors duration-300 hover:text-base-bg"
+                                className="flex items-center gap-2 text-base font-bold text-ink-soft transition-colors duration-300 hover:text-base-ink"
                                 style={{ fontFamily: "var(--font-display)" }}
                             >
                                 <Icon icon={item.icon} size={18} />
@@ -51,7 +61,7 @@ const Footer = () => {
                     </nav>
                 </Reveal>
 
-                <Reveal delay={0.08}>
+                <Reveal delay={0.04}>
                     <div className="flex items-center gap-3 pt-2">
                         {SOCIAL_LINKS.map((social) => (
                             <a
@@ -60,7 +70,7 @@ const Footer = () => {
                                 target={social.href.startsWith("http") ? "_blank" : undefined}
                                 rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
                                 aria-label={social.label}
-                                className="glass-dark flex w-12 h-12 items-center justify-center rounded-2xl text-bg-soft transition-colors duration-300 hover:text-base-bg"
+                                className="glass flex w-12 h-12 items-center justify-center rounded-2xl text-ink-soft transition-colors duration-300 hover:text-base-ink"
                             >
                                 <Icon icon={social.icon} size={20} />
                             </a>
@@ -69,13 +79,13 @@ const Footer = () => {
                 </Reveal>
 
                 <Reveal delay={0}>
-                    <p className="pt-2 text-sm text-bg-soft">© {new Date().getFullYear()} Eduardo Octávio</p>
+                    <p className="pt-2 text-sm text-ink-soft">© {new Date().getFullYear()} Eduardo Octávio</p>
                 </Reveal>
             </div>
 
             <div
                 aria-hidden
-                className="pointer-events-none select-none whitespace-nowrap text-right font-extrabold leading-none text-bg-soft/15"
+                className="pointer-events-none select-none whitespace-nowrap text-right font-extrabold leading-none text-ink-soft/15"
                 style={{
                     fontFamily: "var(--font-display)",
                     fontSize: "16vw",
@@ -86,8 +96,8 @@ const Footer = () => {
             >
                 Eduardo
             </div>
-        </footer>
+        </div>
     )
 }
 
-export default Footer
+export default NotFound
