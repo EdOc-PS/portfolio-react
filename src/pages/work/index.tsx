@@ -11,7 +11,7 @@ import trophySticker from "@/assets/stickers/trophy.png"
 
 const Work = () => {
     return (
-        <div className="min-h-screen w-full bg-base-bg">
+        <div className="min-h-screen w-full">
             {/* Hero */}
             <section className="relative flex min-h-screen w-full flex-col items-center justify-between gap-6 px-6 pt-10 pb-10 text-center">
                 <Reveal delay={0.42}>

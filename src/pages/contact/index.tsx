@@ -5,6 +5,8 @@ import letterBoldDuotone from "@iconify-icons/solar/letter-bold-duotone"
 import userBoldDuotone from "@iconify-icons/solar/user-bold-duotone"
 import arrowRightUpBoldDuotone from "@iconify-icons/solar/arrow-right-up-bold-duotone"
 import altArrowDownBoldDuotone from "@iconify-icons/solar/alt-arrow-down-bold-duotone"
+import checkCircleBoldDuotone from "@iconify-icons/solar/check-circle-bold-duotone"
+import dangerCircleBoldDuotone from "@iconify-icons/solar/danger-circle-bold-duotone"
 import { Icon } from "@/components/ui/Icon"
 import Reveal from "@/components/ui/Reveal"
 import businessDarkSticker from "@/assets/stickers/business-dark.png"
@@ -35,19 +37,35 @@ const REVEAL_STEP = 0.08
 const TOTAL_REVEAL_ITEMS = 3 + FAQ.length // hero, form, faq-title + cada pergunta
 const revealDelay = (index: number) => (TOTAL_REVEAL_ITEMS - 1 - index) * REVEAL_STEP
 
+type SubmitStatus = "idle" | "sending" | "success" | "error"
+
 const Contact = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(0)
     const [form, setForm] = useState({ name: "", email: "", message: "" })
+    const [status, setStatus] = useState<SubmitStatus>("idle")
 
     const handleChange = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setForm((prev) => ({ ...prev, [field]: e.target.value }))
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        const subject = encodeURIComponent(`Contato via portfólio — ${form.name || "sem nome"}`)
-        const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`)
-        window.location.href = `mailto:eeuardooctavio@gmail.com?subject=${subject}&body=${body}`
+        setStatus("sending")
+
+        try {
+            const res = await fetch("/api/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(form),
+            })
+
+            if (!res.ok) throw new Error("Falha ao enviar")
+
+            setStatus("success")
+            setForm({ name: "", email: "", message: "" })
+        } catch {
+            setStatus("error")
+        }
     }
 
     return (
@@ -138,16 +156,31 @@ const Contact = () => {
 
                     <button
                         type="submit"
-                        className="mt-2 flex cursor-pointer items-center justify-center gap-3 rounded-full bg-base-bg px-8 py-5 text-lg font-bold text-base-ink transition-transform duration-300 hover:scale-[1.02]"
+                        disabled={status === "sending"}
+                        className="mt-2 flex cursor-pointer items-center justify-center gap-3 rounded-full bg-base-bg px-8 py-5 text-lg font-bold text-base-ink transition-transform duration-300 hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
                         style={{ fontFamily: "var(--font-display)" }}
                     >
-                        Enviar mensagem
+                        {status === "sending" ? "Enviando..." : "Enviar mensagem"}
                         <Icon icon={arrowRightUpBoldDuotone} size={20} />
                     </button>
+
+                    {status === "success" && (
+                        <p className="flex items-center justify-center gap-2 text-base font-bold text-accent-green">
+                            <Icon icon={checkCircleBoldDuotone} size={20} />
+                            Mensagem enviada! Retorno em breve.
+                        </p>
+                    )}
+
+                    {status === "error" && (
+                        <p className="flex items-center justify-center gap-2 text-base font-bold text-accent-pink">
+                            <Icon icon={dangerCircleBoldDuotone} size={20} />
+                            Não deu pra enviar agora — tenta de novo ou me chama por e-mail.
+                        </p>
+                    )}
                 </form>
             </Reveal>
 
-            <div className="relative mx-auto grid w-full max-w-[85rem] gap-12 pt-56 pb-32 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+            <div className="relative mx-auto grid w-full max-w-[85rem] gap-12 pt-80 pb-48 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
                 <Reveal delay={revealDelay(2)} className="flex flex-col gap-5">
                     <div className="flex items-center gap-4">
                         <p className="text-4xl font-extrabold text-base-bg sm:text-5xl" style={{ fontFamily: "var(--font-display)" }}>
