@@ -114,7 +114,7 @@ const About = () => {
         }
     }, [])
 
-    const timelineDelay = (index: number) => (TIMELINE.length - 1 - index) * 0.06
+    const timelineDelay = (index: number) => index * 0.06
     const HERO_ITEMS = 5
     const heroDelay = (index: number) => (HERO_ITEMS - 1 - index) * 0.1
 
@@ -132,9 +132,16 @@ const About = () => {
 
                 <div className="flex flex-col items-center gap-28 sm:flex-row sm:items-start">
                     <Reveal delay={heroDelay(1)}>
-                        <div className="glass flex h-[385px] w-[385px] shrink-0 items-center justify-center overflow-hidden rounded-t-full">
-                            {/* placeholder — troque por uma foto real */}
-                            <img src={manSticker} alt="Eduardo Octávio" className="h-56 w-56 object-contain" />
+                        <div className="relative">
+                            <div className="glass flex h-[385px] w-[385px] shrink-0 items-center justify-center overflow-hidden rounded-t-full">
+                                {/* placeholder — troque por uma foto real */}
+                            </div>
+                            <img
+                                src={manSticker}
+                                alt=""
+                                aria-hidden="true"
+                                className="pointer-events-none absolute -bottom-6 -right-20 hidden h-40 w-40 object-contain sm:block"
+                            />
                         </div>
                     </Reveal>
 
@@ -182,7 +189,7 @@ const About = () => {
             </Reveal>
 
             <div ref={containerRef} className="mx-auto flex w-full max-w-[85rem] flex-col gap-6 px-6 pb-24 sm:px-10">
-                {TIMELINE.map((item, index) => {
+                {[...TIMELINE].reverse().map((item, index) => {
                     const style = styles[item.key]
                     return (
                         <Reveal key={item.key} delay={timelineDelay(index)}>
