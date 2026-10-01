@@ -13,6 +13,14 @@ export default async function handler(req, res) {
     return res.status(400).json({ success: false, message: "Preencha todos os campos" });
   }
 
+  if (
+    typeof name !== "string" || typeof email !== "string" || typeof message !== "string" ||
+    !name.trim() || !message.trim() ||
+    name.length > 80 || email.length > 254 || message.length > 2000
+  ) {
+    return res.status(400).json({ success: false, message: "Campos inválidos ou acima do limite" });
+  }
+
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
     return res.status(400).json({ success: false, message: "E-mail inválido" });
   }

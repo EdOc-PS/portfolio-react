@@ -40,6 +40,8 @@ const revealDelay = (index: number) => (TOTAL_REVEAL_ITEMS - 1 - index) * REVEAL
 
 type SubmitStatus = "idle" | "sending" | "success" | "error" | "invalid-email"
 
+const LIMITS = { name: 80, email: 254, message: 2000 }
+
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
 const Contact = () => {
@@ -125,6 +127,7 @@ const Contact = () => {
                             <Icon icon={userBoldDuotone} size={20} />
                             <input
                                 required
+                                maxLength={LIMITS.name}
                                 type="text"
                                 value={form.name}
                                 onChange={handleChange("name")}
@@ -140,6 +143,7 @@ const Contact = () => {
                             <Icon icon={letterBoldDuotone} size={20} />
                             <input
                                 required
+                                maxLength={LIMITS.email}
                                 type="email"
                                 value={form.email}
                                 onChange={handleChange("email")}
@@ -155,6 +159,7 @@ const Contact = () => {
                             <Icon icon={chatRoundDotsBoldDuotone} size={20} />
                             <textarea
                                 required
+                                maxLength={LIMITS.message}
                                 rows={4}
                                 value={form.message}
                                 onChange={handleChange("message")}
