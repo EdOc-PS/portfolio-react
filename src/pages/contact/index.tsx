@@ -3,6 +3,7 @@ import { motion } from "motion/react"
 import chatRoundDotsBoldDuotone from "@iconify-icons/solar/chat-round-dots-bold-duotone"
 import letterBoldDuotone from "@iconify-icons/solar/letter-bold-duotone"
 import userBoldDuotone from "@iconify-icons/solar/user-bold-duotone"
+import hourglassBoldDuotone from "@iconify-icons/solar/hourglass-bold-duotone"
 import arrowRightUpBoldDuotone from "@iconify-icons/solar/arrow-right-up-bold-duotone"
 import altArrowDownBoldDuotone from "@iconify-icons/solar/alt-arrow-down-bold-duotone"
 import checkCircleBoldDuotone from "@iconify-icons/solar/check-circle-bold-duotone"
@@ -37,7 +38,9 @@ const REVEAL_STEP = 0.05
 const TOTAL_REVEAL_ITEMS = 3 + FAQ.length // hero, form, faq-title + cada pergunta
 const revealDelay = (index: number) => (TOTAL_REVEAL_ITEMS - 1 - index) * REVEAL_STEP
 
-type SubmitStatus = "idle" | "sending" | "success" | "error"
+type SubmitStatus = "idle" | "sending" | "success" | "error" | "invalid-email"
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
 const Contact = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(0)
@@ -50,13 +53,19 @@ const Contact = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+
+        if (!EMAIL_REGEX.test(form.email.trim())) {
+            setStatus("invalid-email")
+            return
+        }
+
         setStatus("sending")
 
         try {
             const res = await fetch("/api/send", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(form),
+                body: JSON.stringify({ ...form, email: form.email.trim() }),
             })
 
             if (!res.ok) throw new Error("Falha ao enviar")
@@ -98,6 +107,7 @@ const Contact = () => {
             <Reveal delay={revealDelay(1)} className="relative mx-auto w-full max-w-[85rem] pt-24">
                 <form
                     onSubmit={handleSubmit}
+                    noValidate
                     className="glass-dark mx-auto flex w-full max-w-2xl flex-col gap-6 rounded-[2.5rem] p-8 sm:p-12"
                 >
                     <div className="flex items-center gap-3">
@@ -161,13 +171,30 @@ const Contact = () => {
                         style={{ fontFamily: "var(--font-display)" }}
                     >
                         {status === "sending" ? "Enviando..." : "Enviar mensagem"}
-                        <Icon icon={arrowRightUpBoldDuotone} size={20} />
+                        {status === "sending" ? (
+                            <motion.span
+                                className="flex"
+                                animate={{ rotate: [0, 180, 180, 360] }}
+                                transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut", times: [0, 0.4, 0.5, 0.9] }}
+                            >
+                                <Icon icon={hourglassBoldDuotone} size={20} />
+                            </motion.span>
+                        ) : (
+                            <Icon icon={arrowRightUpBoldDuotone} size={20} />
+                        )}
                     </button>
 
                     {status === "success" && (
                         <p className="flex items-center justify-center gap-2 text-base font-bold text-accent-green">
                             <Icon icon={checkCircleBoldDuotone} size={20} />
                             Mensagem enviada! Retorno em breve.
+                        </p>
+                    )}
+
+                    {status === "invalid-email" && (
+                        <p className="flex items-center justify-center gap-2 text-base font-bold text-accent-pink">
+                            <Icon icon={dangerCircleBoldDuotone} size={20} />
+                            Informe um e-mail válido (ex.: voce@email.com).
                         </p>
                     )}
 

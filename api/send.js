@@ -13,10 +13,14 @@ export default async function handler(req, res) {
     return res.status(400).json({ success: false, message: "Preencha todos os campos" });
   }
 
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    return res.status(400).json({ success: false, message: "E-mail inválido" });
+  }
+
   try {
     const { error } = await resend.emails.send({
       from: "Portfólio <onboarding@resend.dev>",
-      to: "eeuardooctavio@gmail.com",
+      to: process.env.CONTACT_TO_EMAIL ?? "eeuardoprofissional@gmail.com",
       replyTo: email,
       subject: `Contato via portfólio — ${name}`,
       text: `${message}\n\n— ${name} (${email})`,
