@@ -6,6 +6,8 @@ const ProjectSchema = new mongoose.Schema({
   technologies: [String],
   github: String,
   live: String,
+  image: String,
+  video: String,
 });
 
 export default mongoose.models.Project ||
