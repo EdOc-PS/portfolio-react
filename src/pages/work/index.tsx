@@ -122,7 +122,7 @@ const Work = () => {
 )}
                     {s3 !== null && (
 <Reveal delay={0.12} className="sm:row-span-2">
-                        <ProjectCard project={s3 ?? undefined} noZoom className="aspect-4/3 sm:aspect-auto h-full" />
+                        <ProjectCard project={s3 ?? undefined} className="aspect-4/3 sm:aspect-auto h-full" />
                     </Reveal>
 )}
                     {s2 !== null && (
