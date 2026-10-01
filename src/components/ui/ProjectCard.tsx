@@ -9,7 +9,7 @@ interface ProjectCardProps {
     project?: Project
     className?: string
     tag?: string
-    /** Sem zoom no hover e com a imagem alinhada ao topo (útil para imagens verticais). */
+    /** Mostra a imagem inteira (sem corte) e sem zoom no hover. */
     noZoom?: boolean
 }
 
@@ -70,7 +70,7 @@ const ProjectCard = ({ project, className = "", tag, noZoom = false }: ProjectCa
             onMouseLeave={handleMouseLeave}
             onClick={() => detailHref && window.open(detailHref, "_blank", "noopener,noreferrer")}
             style={{ rotateX, rotateY, scale, transformPerspective: 800 }}
-            className={`group relative block h-full w-full overflow-hidden rounded-[2.5rem] ${detailHref ? "cursor-pointer" : ""} ${className}`}
+            className={`group relative block h-full w-full overflow-hidden rounded-[2.5rem] ${detailHref ? "cursor-pointer" : ""} ${noZoom ? "bg-base-bg" : ""} ${className}`}
         >
             {!project.image && !project.video && (
                 <div
@@ -88,7 +88,7 @@ const ProjectCard = ({ project, className = "", tag, noZoom = false }: ProjectCa
                 src={project.image}
                 alt={project.title}
                 loading="lazy"
-                className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ${noZoom ? "object-top" : "group-hover:scale-105"}`}
+                className={`absolute inset-0 h-full w-full transition-transform duration-500 ${noZoom ? "object-contain" : "object-cover group-hover:scale-105"}`}
             />
             )}
 
@@ -101,7 +101,7 @@ const ProjectCard = ({ project, className = "", tag, noZoom = false }: ProjectCa
                     loop
                     playsInline
                     preload="auto"
-                    className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ${noZoom ? "object-top" : "group-hover:scale-105"}`}
+                    className={`absolute inset-0 h-full w-full transition-transform duration-500 ${noZoom ? "object-contain" : "object-cover group-hover:scale-105"}`}
                 />
             )}
 
