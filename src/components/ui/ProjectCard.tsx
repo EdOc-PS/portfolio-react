@@ -21,10 +21,18 @@ const FALLBACK_GRADIENTS = [
 const gradientFor = (title: string) =>
     FALLBACK_GRADIENTS[[...title].reduce((acc, c) => acc + c.charCodeAt(0), 0) % FALLBACK_GRADIENTS.length]
 
+// Garante URL absoluta: sem protocolo o navegador trata como caminho relativo ao site.
+const toAbsoluteUrl = (url?: string) => {
+    const value = url?.trim()
+    if (!value) return undefined
+    return /^https?:\/\//i.test(value) ? value : `https://${value}`
+}
+
 const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
 
     const ref = useRef<HTMLDivElement>(null)
-    const detailHref = project?.live || project?.github
+    const githubHref = toAbsoluteUrl(project?.github)
+    const detailHref = toAbsoluteUrl(project?.live) || githubHref
 
     const mouseX = useMotionValue(0.5)
     const mouseY = useMotionValue(0.5)
@@ -110,9 +118,9 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
             </div>
 
             <div className="absolute bottom-4 right-4 flex items-center gap-2 opacity-0 transition-all duration-300 group-hover:opacity-100">
-                {project.github && (
+                {githubHref && (
                     <a
-                        href={project.github}
+                        href={githubHref}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}

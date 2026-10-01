@@ -38,21 +38,21 @@ type TimelineStyle = { marginLeft: number; width?: number }
 const SKILLS = [
     {
         number: "01",
-        title: "Full Stack",
+        title: "Linguagens",
         color: "var(--color-accent-pink)",
-        description: "Atuo tanto no front-end quanto no back-end, com experiência prática em Node.js, TypeScript e React Native.",
+        description: "Trabalho com React, TypeScript, React Native, Java, Next.js e Node.js, tanto no front-end quanto no back-end.",
     },
     {
         number: "02",
-        title: "Clean Code",
+        title: "Carreira",
         color: "var(--color-accent-blue)",
-        description: "Construo e mantenho APIs REST e integrações entre sistemas, sempre com organização em camadas e boas práticas.",
+        description: "Do técnico em TI ao estágio no Hospital FOB, passando por integrações na CLI, até atuar hoje como Dev. Fullstack na ZTOtech.",
     },
     {
         number: "03",
-        title: "IA no fluxo",
+        title: "Ferramentas",
         color: "var(--color-accent-orange)",
-        description: "Uso ferramentas e agentes de IA no dia a dia, sempre com revisão crítica do código gerado.",
+        description: "Já usei Git, Vercel e Godot, além de ferramentas e agentes de IA no dia a dia, sempre com revisão crítica do código gerado.",
     },
     {
         number: "04",
