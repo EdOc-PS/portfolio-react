@@ -9,7 +9,8 @@ import codeBoldDuotone from "@iconify-icons/solar/code-bold-duotone"
 import type { IconifyIcon } from "@iconify/react/dist/offline"
 import { Icon } from "@/components/ui/Icon"
 import Reveal from "@/components/ui/Reveal"
-import manSticker from "@/assets/stickers/man.png"
+import webSticker from "@/assets/stickers/web.png"
+import eduardoPhoto from "@/assets/eduardo.png"
 
 type TimelineItem = {
     key: string
@@ -133,11 +134,24 @@ const About = () => {
                 <div className="flex flex-col items-center gap-28 sm:flex-row sm:items-start">
                     <Reveal delay={heroDelay(1)}>
                         <div className="relative">
-                            <div className="glass flex h-[385px] w-[385px] shrink-0 items-center justify-center overflow-hidden rounded-t-full">
-                                {/* placeholder — troque por uma foto real */}
+                            <div
+                                className="relative flex h-[385px] w-[385px] shrink-0 items-end justify-center overflow-hidden rounded-t-full"
+                                style={{
+                                    background:
+                                        [
+                                            "radial-gradient(circle at 28% 18%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 38%)",
+                                            "linear-gradient(165deg, #E4F0FC 0%, #8CC0EE 35%, #7F8FCB 70%, #5A5FA8 100%)",
+                                        ].join(", "),
+                                }}
+                            >
+                                <img
+                                    src={eduardoPhoto}
+                                    alt="Foto de Eduardo Octávio"
+                                    className="h-full w-full translate-y-8 select-none object-cover object-bottom"
+                                />
                             </div>
                             <img
-                                src={manSticker}
+                                src={webSticker}
                                 alt=""
                                 aria-hidden="true"
                                 className="pointer-events-none absolute -bottom-6 -right-20 hidden h-40 w-40 object-contain sm:block"
