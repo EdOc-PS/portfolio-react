@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { contactEmailHtml } from "./emailTemplate.js";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -31,6 +32,7 @@ export default async function handler(req, res) {
       to: process.env.CONTACT_TO_EMAIL ?? "eeuardoprofissional@gmail.com",
       replyTo: email,
       subject: `Contato via portfólio — ${name}`,
+      html: contactEmailHtml({ name: name.trim(), email, message: message.trim() }),
       text: `${message}\n\n— ${name} (${email})`,
     });
 
