@@ -58,8 +58,9 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
             onMouseMove={handleMouseMove}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onClick={() => detailHref && window.open(detailHref, "_blank", "noopener,noreferrer")}
             style={{ rotateX, rotateY, scale, transformPerspective: 800 }}
-            className={`group relative block h-full w-full overflow-hidden rounded-[2.5rem] ${className}`}
+            className={`group relative block h-full w-full overflow-hidden rounded-[2.5rem] ${detailHref ? "cursor-pointer" : ""} ${className}`}
         >
             {!project.image && !project.video && (
                 <div
@@ -124,6 +125,7 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
                 {detailHref ? (
                     <a
                         href={detailHref}
+                        onClick={(e) => e.stopPropagation()}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`Abrir ${project.title}`}

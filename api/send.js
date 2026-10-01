@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: "Portfólio <onboarding@resend.dev>",
       to: "eeuardooctavio@gmail.com",
       replyTo: email,
@@ -22,8 +22,14 @@ export default async function handler(req, res) {
       text: `${message}\n\n— ${name} (${email})`,
     });
 
+    if (error) {
+      console.error("Resend error:", error);
+      return res.status(500).json({ success: false, message: error.message });
+    }
+
     return res.status(200).json({ success: true });
   } catch (err) {
+    console.error("send error:", err);
     return res.status(500).json({ success: false, message: "Erro ao enviar mensagem" });
   }
 }

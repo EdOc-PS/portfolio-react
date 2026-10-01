@@ -1,15 +1,15 @@
 import { NavLink } from "react-router-dom"
 import githubIcon from "@iconify-icons/simple-icons/github"
 import linkedinIcon from "@iconify-icons/simple-icons/linkedin"
-import letterBoldDuotone from "@iconify-icons/solar/letter-bold-duotone"
+import instagramIcon from "@iconify-icons/simple-icons/instagram"
 import { Icon } from "@/components/ui/Icon"
 import Reveal from "@/components/ui/Reveal"
 import { NAV_ITEMS } from "@/components/layout/navItems"
 
 const SOCIAL_LINKS = [
-    { label: "GitHub", href: "https://github.com/", icon: githubIcon },
-    { label: "LinkedIn", href: "https://linkedin.com/", icon: linkedinIcon },
-    { label: "E-mail", href: "mailto:eeuardooctavio@gmail.com", icon: letterBoldDuotone },
+    { label: "GitHub", href: "https://github.com/EdOc-PS", icon: githubIcon },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/eduardo-octavio/", icon: linkedinIcon },
+    { label: "Instagram", href: "https://www.instagram.com/edoc.ps", icon: instagramIcon },
 ]
 
 const Footer = () => {
