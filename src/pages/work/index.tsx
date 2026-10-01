@@ -4,12 +4,12 @@ import arrowDownBoldDuotone from "@iconify-icons/solar/arrow-down-bold-duotone"
 import arrowRightUpBoldDuotone from "@iconify-icons/solar/arrow-right-up-bold-duotone"
 import { Icon } from "@/components/ui/Icon"
 import ProjectCard from "@/components/ui/ProjectCard"
+import FeaturedProject from "@/components/ui/FeaturedProject"
 import Reveal from "@/components/ui/Reveal"
 import { useEffect, useState } from "react"
 import type { Project } from "@/pages/work/projects"
 import { GetRequest } from "@/service/getRequest"
 import lightbulbSticker from "@/assets/stickers/product.png"
-import trophySticker from "@/assets/stickers/trophy.png"
 
 const Work = () => {
     const [projects, setProjects] = useState<Project[]>([])
@@ -71,17 +71,7 @@ const Work = () => {
             </section>
 
             {/* Projeto em destaque */}
-            {featured !== null && <Reveal delay={0.3}>
-                <section className="relative mx-auto flex w-full max-w-[85rem] flex-col px-6 sm:px-10 pt-16 pb-16">
-                    <img
-                        src={trophySticker}
-                        alt=""
-                        aria-hidden
-                        className="pointer-events-none absolute -right-2 top-2 z-10 w-20 rotate-6 select-none sm:w-24"
-                    />
-                    <ProjectCard project={featured ?? undefined} tag="Projeto em destaque" className="aspect-4/3 sm:aspect-21/9" />
-                </section>
-            </Reveal>}
+            {featured !== null && <FeaturedProject project={featured ?? undefined} tag="Projeto em destaque" />}
 
             {/* Texto + estatísticas */}
             <Reveal delay={0.24}>
