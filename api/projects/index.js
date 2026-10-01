@@ -9,7 +9,10 @@ export default async function handler(req, res) {
   try {
     await connectDB();
 
-    const projects = await Project.find();
+    // `order` fixa a posição (0 = destaque); projetos sem `order` vão para o fim.
+    const projects = (await Project.find().lean()).sort(
+      (a, b) => (a.order ?? 9999) - (b.order ?? 9999)
+    );
 
     return res.status(200).json({ success: true, projects });
   } catch (err) {

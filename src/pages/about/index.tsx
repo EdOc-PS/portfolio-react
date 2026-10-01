@@ -154,7 +154,7 @@ const About = () => {
                                 src={webSticker}
                                 alt=""
                                 aria-hidden="true"
-                                className="pointer-events-none absolute -bottom-6 -right-20 hidden h-40 w-40 object-contain sm:block"
+                                className="pointer-events-none absolute -bottom-6 -right-20 hidden h-32 w-32 object-contain sm:block"
                             />
                         </div>
                     </Reveal>

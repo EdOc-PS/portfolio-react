@@ -8,6 +8,7 @@ const ProjectSchema = new mongoose.Schema({
   live: String,
   image: String,
   video: String,
+  order: Number,
 });
 
 export default mongoose.models.Project ||
