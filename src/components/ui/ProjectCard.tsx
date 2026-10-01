@@ -9,6 +9,8 @@ interface ProjectCardProps {
     project?: Project
     className?: string
     tag?: string
+    /** Sem zoom no hover e com a imagem alinhada ao topo (útil para imagens verticais). */
+    noZoom?: boolean
 }
 
 const FALLBACK_GRADIENTS = [
@@ -28,7 +30,7 @@ const toAbsoluteUrl = (url?: string) => {
     return /^https?:\/\//i.test(value) ? value : `https://${value}`
 }
 
-const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
+const ProjectCard = ({ project, className = "", tag, noZoom = false }: ProjectCardProps) => {
 
     const ref = useRef<HTMLDivElement>(null)
     const githubHref = toAbsoluteUrl(project?.github)
@@ -48,7 +50,7 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
         mouseY.set((e.clientY - rect.top) / rect.height)
     }
 
-    const handleMouseEnter = () => scale.set(1.04)
+    const handleMouseEnter = () => scale.set(noZoom ? 1 : 1.04)
 
     const handleMouseLeave = () => {
         scale.set(1)
@@ -86,7 +88,7 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
                 src={project.image}
                 alt={project.title}
                 loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ${noZoom ? "object-top" : "group-hover:scale-105"}`}
             />
             )}
 
@@ -99,7 +101,7 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
                     loop
                     playsInline
                     preload="auto"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ${noZoom ? "object-top" : "group-hover:scale-105"}`}
                 />
             )}
 

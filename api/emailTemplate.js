@@ -8,10 +8,11 @@ const escapeHtml = (value) =>
 
 // Mesmas cores e fontes do design system do site (src/index.css).
 const COLORS = {
-  bg: "#FBF9EF",
-  ink: "#1F1F1F",
-  soft: "#7A7A72",
-  card: "#FFFFFF",
+  bg: "#1F1F1F", // base-ink (fundo do footer)
+  ink: "#FBF9EF", // base-bg (texto)
+  soft: "#8F8D85", // bg-soft
+  card: "#2E2E2C", // glass-dark
+  field: "#3A3A38",
 };
 const FONT_DISPLAY = "'Poppins', Arial, Helvetica, sans-serif";
 const FONT_BODY = "'Plus Jakarta Sans', Arial, Helvetica, sans-serif";
@@ -26,6 +27,8 @@ export function contactEmailHtml({ name, email, message }) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="supported-color-schemes" content="dark" />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
   <title>Novo contato</title>
 </head>
@@ -50,14 +53,14 @@ export function contactEmailHtml({ name, email, message }) {
               </p>
 
               <p style="margin:0 0 8px;font-family:${FONT_BODY};font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:${COLORS.soft};">Mensagem</p>
-              <div style="background:${COLORS.bg};border-radius:16px;padding:20px;font-family:${FONT_BODY};font-size:16px;line-height:1.6;color:${COLORS.ink};">
+              <div style="background:${COLORS.field};border-radius:16px;padding:20px;font-family:${FONT_BODY};font-size:16px;line-height:1.6;color:${COLORS.ink};">
                 ${safeMessage}
               </div>
 
               <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:28px;">
                 <tr>
                   <td style="background:${COLORS.ink};border-radius:999px;">
-                    <a href="mailto:${safeEmail}" style="display:inline-block;padding:14px 28px;font-family:${FONT_DISPLAY};font-size:15px;font-weight:700;color:${COLORS.bg};text-decoration:none;">Responder</a>
+                    <a href="mailto:${safeEmail}" style="display:inline-block;padding:14px 28px;font-family:${FONT_DISPLAY};font-size:15px;font-weight:700;color:#1F1F1F;text-decoration:none;">Responder</a>
                   </td>
                 </tr>
               </table>
