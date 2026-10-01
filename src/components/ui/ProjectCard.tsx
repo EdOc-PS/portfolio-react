@@ -6,14 +6,25 @@ import { Icon } from "@/components/ui/Icon"
 import type { Project } from "@/pages/work/projects"
 
 interface ProjectCardProps {
-    project: Project
+    project?: Project
     className?: string
     tag?: string
 }
 
+const FALLBACK_GRADIENTS = [
+    "linear-gradient(135deg, #ff7a59, #ffb35c)",
+    "linear-gradient(135deg, #7b8fd4, #a3b3ff)",
+    "linear-gradient(135deg, #3ecf8e, #9be15d)",
+    "linear-gradient(135deg, #ff6fae, #ffb3d1)",
+]
+
+const gradientFor = (title: string) =>
+    FALLBACK_GRADIENTS[[...title].reduce((acc, c) => acc + c.charCodeAt(0), 0) % FALLBACK_GRADIENTS.length]
+
 const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
+
     const ref = useRef<HTMLDivElement>(null)
-    const detailHref = project.live || project.github
+    const detailHref = project?.live || project?.github
 
     const mouseX = useMotionValue(0.5)
     const mouseY = useMotionValue(0.5)
@@ -37,6 +48,10 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
         mouseY.set(0.5)
     }
 
+    if (!project) {
+        return <div className={`h-full w-full animate-pulse rounded-[2.5rem] bg-base-ink/10 ${className}`} />
+    }
+
     return (
         <motion.div
             ref={ref}
@@ -46,12 +61,38 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
             style={{ rotateX, rotateY, scale, transformPerspective: 800 }}
             className={`group relative block h-full w-full overflow-hidden rounded-[2.5rem] ${className}`}
         >
+            {!project.image && !project.video && (
+                <div
+                    className="absolute inset-0 flex items-center justify-center"
+                    style={{ background: gradientFor(project.title) }}
+                >
+                    <span className="select-none text-8xl font-extrabold text-white/70" style={{ fontFamily: "var(--font-display)" }}>
+                        {project.title.charAt(0)}
+                    </span>
+                </div>
+            )}
+
+            {project.image && (
             <img
                 src={project.image}
                 alt={project.title}
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
+            )}
+
+            {project.video && (
+                <video
+                    src={project.video}
+                    poster={project.image}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+            )}
 
             {tag && (
                 <div className="glass-dark absolute right-4 top-4 rounded-full px-4 py-2">

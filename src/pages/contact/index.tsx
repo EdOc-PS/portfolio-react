@@ -33,7 +33,7 @@ const FAQ = [
 
 // Delays decrescem de cima para baixo: o item mais alto na página tem o maior delay,
 // como se o "levantar" começasse pelos itens de baixo primeiro.
-const REVEAL_STEP = 0.08
+const REVEAL_STEP = 0.05
 const TOTAL_REVEAL_ITEMS = 3 + FAQ.length // hero, form, faq-title + cada pergunta
 const revealDelay = (index: number) => (TOTAL_REVEAL_ITEMS - 1 - index) * REVEAL_STEP
 
@@ -70,7 +70,7 @@ const Contact = () => {
 
     return (
         <div className="relative -mx-6 -mt-24 min-h-screen w-[calc(100%+3rem)] overflow-hidden bg-base-ink px-6 py-24 sm:-mx-10 sm:w-[calc(100%+5rem)] sm:px-10 md:-mx-32 md:mt-0 md:w-[calc(100%+16rem)] md:px-32">
-            <Reveal delay={revealDelay(0)} className="relative mx-auto flex w-full max-w-[85rem] flex-col items-center gap-6 pt-10 text-center">
+            <Reveal delay={revealDelay(0) + 0.1} className="relative mx-auto flex w-full max-w-[85rem] flex-col items-center gap-6 pt-10 text-center">
                 <h1
                     className="flex flex-wrap items-center justify-center gap-4 text-5xl font-extrabold leading-[1.05] text-base-bg sm:text-7xl md:text-8xl"
                     style={{ fontFamily: "var(--font-display)" }}

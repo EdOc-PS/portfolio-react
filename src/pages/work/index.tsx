@@ -5,16 +5,32 @@ import arrowRightUpBoldDuotone from "@iconify-icons/solar/arrow-right-up-bold-du
 import { Icon } from "@/components/ui/Icon"
 import ProjectCard from "@/components/ui/ProjectCard"
 import Reveal from "@/components/ui/Reveal"
-import { PROJECTS } from "@/pages/work/projects"
+import { useEffect, useState } from "react"
+import type { Project } from "@/pages/work/projects"
+import { GetRequest } from "@/service/getRequest"
 import lightbulbSticker from "@/assets/stickers/product.png"
 import trophySticker from "@/assets/stickers/trophy.png"
 
 const Work = () => {
+    const [projects, setProjects] = useState<Project[]>([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        GetRequest("/api/projects")
+            .then((res) => setProjects(res?.success ? res.projects : []))
+            .finally(() => setLoading(false))
+    }, [])
+
+    // Durante o loading mostra skeletons nos 5 slots; depois só os projetos existentes.
+    const slot = (i: number): Project | undefined | null => (loading ? undefined : (projects[i] ?? null))
+    const featured = slot(0)
+    const s1 = slot(1), s2 = slot(2), s3 = slot(3), s4 = slot(4)
+
     return (
         <div className="min-h-screen w-full">
             {/* Hero */}
             <section className="relative flex min-h-screen w-full flex-col items-center justify-between gap-6 px-6 pt-10 pb-10 text-center">
-                <Reveal delay={0.42}>
+                <Reveal delay={0.46}>
                     <h1
                         className="text-7xl sm:text-8xl md:text-9xl font-extrabold leading-[0.95] text-base-ink"
                         style={{ fontFamily: "var(--font-display)" }}
@@ -55,7 +71,7 @@ const Work = () => {
             </section>
 
             {/* Projeto em destaque */}
-            <Reveal delay={0.3}>
+            {featured !== null && <Reveal delay={0.3}>
                 <section className="relative mx-auto flex w-full max-w-[85rem] flex-col px-6 sm:px-10 pt-16 pb-16">
                     <img
                         src={trophySticker}
@@ -63,9 +79,9 @@ const Work = () => {
                         aria-hidden
                         className="pointer-events-none absolute -right-2 top-2 z-10 w-20 rotate-6 select-none sm:w-24"
                     />
-                    <ProjectCard project={PROJECTS[0]} tag="Projeto em destaque" className="aspect-4/3 sm:aspect-21/9" />
+                    <ProjectCard project={featured ?? undefined} tag="Projeto em destaque" className="aspect-4/3 sm:aspect-21/9" />
                 </section>
-            </Reveal>
+            </Reveal>}
 
             {/* Texto + estatísticas */}
             <Reveal delay={0.24}>
@@ -109,20 +125,28 @@ const Work = () => {
             {/* Grid de projetos prontos */}
             <section className="mx-auto flex w-full max-w-[85rem] flex-col gap-8 px-6 sm:px-10 pb-24">
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:auto-rows-[28rem]">
-                    <Reveal delay={0.18}>
-                        <ProjectCard project={PROJECTS[1]} className="aspect-4/3 sm:aspect-auto" />
+                    {s1 !== null && (
+<Reveal delay={0.18}>
+                        <ProjectCard project={s1 ?? undefined} className="aspect-4/3 sm:aspect-auto" />
                     </Reveal>
-                    <Reveal delay={0.12} className="sm:row-span-2">
-                        <ProjectCard project={PROJECTS[3]} className="aspect-4/3 sm:aspect-auto h-full" />
+)}
+                    {s3 !== null && (
+<Reveal delay={0.12} className="sm:row-span-2">
+                        <ProjectCard project={s3 ?? undefined} className="aspect-4/3 sm:aspect-auto h-full" />
                     </Reveal>
-                    <Reveal delay={0.06}>
-                        <ProjectCard project={PROJECTS[2]} className="aspect-4/3 sm:aspect-auto" />
+)}
+                    {s2 !== null && (
+<Reveal delay={0.06}>
+                        <ProjectCard project={s2 ?? undefined} className="aspect-4/3 sm:aspect-auto" />
                     </Reveal>
+)}
                 </div>
 
-                <Reveal delay={0}>
-                    <ProjectCard project={PROJECTS[4]} className="aspect-4/3 sm:aspect-21/9" />
+                {s4 !== null && (
+<Reveal delay={0}>
+                    <ProjectCard project={s4 ?? undefined} className="aspect-4/3 sm:aspect-21/9" />
                 </Reveal>
+)}
             </section>
         </div>
     )
