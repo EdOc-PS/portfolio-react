@@ -99,7 +99,7 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
                     loop
                     playsInline
                     preload="auto"
-                    className={`absolute inset-0 h-full w-full transition-transform duration-500 object-cover object-center group-hover:scale-105`}
+                    className={`absolute inset-0 h-full w-full transition-transform duration-500 object-cover object-center`}
                 />
             )}
 

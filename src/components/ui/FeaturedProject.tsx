@@ -75,12 +75,6 @@ const FeaturedProject = ({ project, tag }: FeaturedProjectProps) => {
                                 />
                             )}
 
-                            <div className="glass-dark absolute left-4 top-4 flex max-w-[calc(100%-2rem)] items-center rounded-full px-4 py-2">
-                                <span className="truncate text-sm font-bold text-base-bg" style={{ fontFamily: "var(--font-display)" }}>
-                                    {project.title}
-                                </span>
-                            </div>
-
                             {tag && (
                                 <div className="glass-dark absolute right-4 top-4 rounded-full px-4 py-2">
                                     <span className="text-xs font-bold uppercase tracking-wide text-base-bg" style={{ fontFamily: "var(--font-display)" }}>

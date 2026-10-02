@@ -30,9 +30,9 @@ const Work = () => {
             .finally(() => setLoading(false))
     }, [])
 
-    // Cards da grade: cada projeto ocupa o slot do seu `order` (1 a 4). Loading mostra skeletons; slot sem projeto some.
+    // Cards da grade: cada projeto ocupa o slot do seu `order` (0 a 3). Loading mostra skeletons; slot sem projeto some.
     const slot = (i: number): Project | undefined | null => (loading ? undefined : (projects.find((p) => p.order === i) ?? null))
-    const s1 = slot(1), s2 = slot(2), s3 = slot(3), s4 = slot(4)
+    const s1 = slot(0), s2 = slot(1), s3 = slot(2), s4 = slot(3)
 
     return (
         <div className="min-h-screen w-full">

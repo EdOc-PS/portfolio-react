@@ -9,6 +9,6 @@ export interface Project {
     image?: string
     /** Preview em loop (mudo), ex.: "/projects/preview.mp4" */
     video?: string
-    /** Posição na grade: 1 topo-esq, 2 baixo-esq, 3 alto à direita, 4 largo no fim */
+    /** Posição na grade: 0 topo-esq, 1 baixo-esq, 2 alto à direita, 3 largo no fim */
     order?: number
 }
