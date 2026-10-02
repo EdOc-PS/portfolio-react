@@ -102,11 +102,11 @@ const Work = () => {
                     <div className="mt-4 flex flex-wrap items-center justify-center gap-8">
                         <div className="text-center">
                             <p className="text-3xl font-extrabold text-base-ink" style={{ fontFamily: "var(--font-display)" }}>+10</p>
-                            <p className="text-sm text-ink-soft">Projetos em que participei (IF e trabalho)</p>
+                            <p className="text-sm text-ink-soft">Participações em projetos</p>
                         </div>
                         <div className="text-center">
                             <p className="text-3xl font-extrabold text-base-ink" style={{ fontFamily: "var(--font-display)" }}>5</p>
-                            <p className="text-sm text-ink-soft">Projetos concluídos (acadêmicos e do trabalho)</p>
+                            <p className="text-sm text-ink-soft">Projetos entregues</p>
                         </div>
                         <div className="text-center">
                             <p className="text-3xl font-extrabold text-base-ink" style={{ fontFamily: "var(--font-display)" }}>15</p>
@@ -114,7 +114,7 @@ const Work = () => {
                         </div>
                         <div className="text-center">
                             <p className="text-3xl font-extrabold text-base-ink" style={{ fontFamily: "var(--font-display)" }}>2</p>
-                            <p className="text-sm text-ink-soft">Anos de experiência em TI</p>
+                            <p className="text-sm text-ink-soft">Anos de experiência</p>
                         </div>
                     </div>
                 </section>

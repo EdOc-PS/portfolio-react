@@ -12,7 +12,7 @@ interface FeaturedProjectProps {
 
 // Largura/altura do card no estado inicial (antes de expandir).
 const CARD_W = "min(100vw - 3rem, 80rem)"
-const CARD_H = `(${CARD_W}) * 9 / 21`
+const CARD_H = `(${CARD_W}) * 9 / 18`
 
 const toAbsoluteUrl = (url?: string) => {
     const value = url?.trim()
@@ -43,7 +43,7 @@ const FeaturedProject = ({ project, tag }: FeaturedProjectProps) => {
                 <motion.div
                     onClick={() => detailHref && window.open(detailHref, "_blank", "noopener,noreferrer")}
                     style={{ top: insetY, bottom: insetY, left: insetX, right: insetX, borderRadius: radius }}
-                    className={`group absolute overflow-hidden ${project?.video ? "bg-base-ink" : ""} ${project ? "" : "animate-pulse bg-base-ink/10"} ${detailHref ? "cursor-pointer" : ""}`}
+                    className={`group absolute overflow-hidden ${project ? "" : "animate-pulse bg-base-ink/10"} ${detailHref ? "cursor-pointer" : ""}`}
                 >
                     {project && (
                         <>
@@ -71,7 +71,7 @@ const FeaturedProject = ({ project, tag }: FeaturedProjectProps) => {
                                     loop
                                     playsInline
                                     preload="auto"
-                                    className="absolute inset-0 h-full w-full object-contain"
+                                    className="absolute inset-0 h-full w-full object-cover"
                                 />
                             )}
 
