@@ -47,15 +47,15 @@
     /* Glassmorphismo padrão do projeto: sem borda, sem sombra, cinza com leve toque de azul */
     .glass {
         background: color-mix(in srgb, var(--color-base-ink) 18%, color-mix(in srgb, var(--color-brand-blue) 2%, transparent));
-        backdrop-filter: blur(20px) saturate(140%);
-        -webkit-backdrop-filter: blur(20px) saturate(140%);
+        backdrop-filter: blur(28px) saturate(140%);
+        -webkit-backdrop-filter: blur(28px) saturate(140%);
     }
 
     /* Variante do glassmorfismo pra fundos escuros (ex: Footer): neutro, sem tom azulado */
     .glass-dark {
         background: color-mix(in srgb, var(--color-base-bg) 14%, transparent);
-        backdrop-filter: blur(20px) saturate(120%);
-        -webkit-backdrop-filter: blur(20px) saturate(120%);
+        backdrop-filter: blur(28px) saturate(120%);
+        -webkit-backdrop-filter: blur(28px) saturate(120%);
     }
 }
 
