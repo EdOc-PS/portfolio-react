@@ -9,6 +9,7 @@ const ProjectSchema = new mongoose.Schema({
   image: String,
   video: String,
   order: Number,
+  color: { type: String, enum: ["light", "dark"], default: "light" },
 });
 
 export default mongoose.models.Project ||

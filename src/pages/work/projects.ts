@@ -11,4 +11,6 @@ export interface Project {
     video?: string
     /** Posição na grade: 0 topo-esq, 1 baixo-esq, 2 alto à direita, 3 largo no fim */
     order?: number
+    /** Cor do texto e dos ícones sobre a mídia: "light" (padrão) ou "dark" (para fundos claros) */
+    color?: "light" | "dark"
 }

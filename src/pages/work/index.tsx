@@ -55,7 +55,7 @@ const Work = () => {
                             />
                         </span>
                         <br />
-                        <span className="text-ink-soft">começam por aqui</span>
+                        <span className="text-ink-soft">começam<br />por aqui</span>
                     </h1>
                 </Reveal>
 

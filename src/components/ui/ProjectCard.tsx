@@ -32,6 +32,8 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
 
     const ref = useRef<HTMLDivElement>(null)
     const githubHref = toAbsoluteUrl(project?.github)
+    // `color` do projeto: "light" (padrão) = texto claro; "dark" = texto escuro para vídeos/imagens claros.
+    const chip = project?.color === "dark" ? "glass text-base-ink" : "glass-dark text-base-bg"
     const detailHref = toAbsoluteUrl(project?.live) || githubHref
 
     const mouseX = useMotionValue(0.5)
@@ -104,15 +106,15 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
             )}
 
             {tag && (
-                <div className="glass-dark absolute right-4 top-4 rounded-full px-4 py-2">
-                    <span className="text-xs font-bold uppercase tracking-wide text-base-bg" style={{ fontFamily: "var(--font-display)" }}>
+                <div className={`${chip} absolute right-4 top-4 rounded-full px-4 py-2`}>
+                    <span className="text-xs font-bold uppercase tracking-wide" style={{ fontFamily: "var(--font-display)" }}>
                         {tag}
                     </span>
                 </div>
             )}
 
-            <div className="glass-dark absolute left-4 top-4 flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-full px-4 py-2">
-                <span className="truncate text-sm font-bold text-base-bg" style={{ fontFamily: "var(--font-display)" }}>
+            <div className={`${chip} absolute left-4 top-4 flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-full px-4 py-2`}>
+                <span className="truncate text-sm font-bold" style={{ fontFamily: "var(--font-display)" }}>
                     {project.title}
                 </span>
             </div>
@@ -125,7 +127,7 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
                         aria-label="Repositório no GitHub"
-                        className="glass-dark flex h-11 w-11 items-center justify-center rounded-full text-base-bg transition-transform duration-300 hover:scale-105"
+                        className={`${chip} flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-300 hover:scale-105`}
                     >
                         <Icon icon={githubIcon} size={18} />
                     </a>
@@ -137,12 +139,12 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`Abrir ${project.title}`}
-                        className="glass-dark flex h-11 w-11 items-center justify-center rounded-full text-base-bg transition-transform duration-300 hover:scale-105"
+                        className={`${chip} flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-300 hover:scale-105`}
                     >
                         <Icon icon={arrowRightUpBoldDuotone} size={20} />
                     </a>
                 ) : (
-                    <div className="glass-dark flex h-11 w-11 items-center justify-center rounded-full text-base-bg">
+                    <div className={`${chip} flex h-11 w-11 items-center justify-center rounded-full`}>
                         <Icon icon={arrowRightUpBoldDuotone} size={20} />
                     </div>
                 )}

@@ -12,7 +12,7 @@ interface FeaturedProjectProps {
 
 // Largura/altura do card no estado inicial (antes de expandir).
 const CARD_W = "min(100vw - 3rem, 80rem)"
-const CARD_H = `(${CARD_W}) * 9 / 18`
+const CARD_H = `(${CARD_W}) * 9 / 16`
 
 const toAbsoluteUrl = (url?: string) => {
     const value = url?.trim()
