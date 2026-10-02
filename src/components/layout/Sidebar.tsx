@@ -49,8 +49,8 @@ const Sidebar = ({ overFooter = false, dark = false }: SidebarProps) => {
                             <NavLink
                                 to={item.to}
                                 className={`flex items-center justify-center w-20 h-20 rounded-3xl transition-colors duration-300 ${dark
-                                    ? "glass-dark text-base-bg visited:text-base-bg"
-                                    : "glass text-ink-soft visited:text-ink-soft hover:text-base-ink"
+                                    ? "glass-liquid-dark text-base-bg visited:text-base-bg"
+                                    : "glass-liquid text-ink-soft visited:text-ink-soft hover:text-base-ink"
                                     }`}
                             >
                                 <Icon icon={item.icon} size={36} />
@@ -58,7 +58,7 @@ const Sidebar = ({ overFooter = false, dark = false }: SidebarProps) => {
                         </motion.div>
 
                         <span
-                            className={`pointer-events-none absolute left-28 whitespace-nowrap rounded-full px-5 py-2.5 text-lg font-bold opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 ${dark ? "glass-dark text-base-bg" : "glass text-base-ink"
+                            className={`pointer-events-none absolute left-28 whitespace-nowrap rounded-full px-5 py-2.5 text-lg font-bold opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 ${dark ? "glass-liquid-dark text-base-bg" : "glass-liquid text-base-ink"
                                 }`}
                             style={{ fontFamily: "var(--font-display)" }}
                         >

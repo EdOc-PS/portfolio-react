@@ -14,7 +14,7 @@ const MobileHeader = ({ overFooter = false }: MobileHeaderProps) => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <header className="md:hidden fixed top-0 left-0 w-full z-50 px-3 pt-3">
+        <header className="md:hidden fixed top-0 left-0 w-full z-[60] px-3 pt-3">
             <div className={`flex items-center justify-between rounded-full px-5 py-3 ${overFooter ? "glass-liquid-dark" : "glass-liquid"}`}>
                 <NavLink
                     to="/"

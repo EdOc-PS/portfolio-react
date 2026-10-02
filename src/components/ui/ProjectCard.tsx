@@ -33,7 +33,7 @@ const ProjectCard = ({ project, className = "", tag }: ProjectCardProps) => {
     const ref = useRef<HTMLDivElement>(null)
     const githubHref = toAbsoluteUrl(project?.github)
     // `color` do projeto muda só a cor do texto/ícones: "light" (padrão) = claro; "dark" = escuro (mídia clara).
-    const chip = `glass-dark ${project?.color === "dark" ? "text-base-ink" : "text-base-bg"}`
+    const chip = project?.color === "dark" ? "glass-liquid text-base-ink" : "glass-liquid-dark text-base-bg"
     const detailHref = toAbsoluteUrl(project?.live) || githubHref
 
     const mouseX = useMotionValue(0.5)

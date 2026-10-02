@@ -76,7 +76,7 @@ const FeaturedProject = ({ project, tag }: FeaturedProjectProps) => {
                             )}
 
                             {tag && (
-                                <div className="glass-dark absolute right-4 top-4 rounded-full px-4 py-2">
+                                <div className="glass-liquid-dark absolute right-4 top-4 rounded-full px-4 py-2">
                                     <span className="text-xs font-bold uppercase tracking-wide text-base-bg" style={{ fontFamily: "var(--font-display)" }}>
                                         {tag}
                                     </span>
@@ -91,7 +91,7 @@ const FeaturedProject = ({ project, tag }: FeaturedProjectProps) => {
                                         rel="noopener noreferrer"
                                         onClick={(e) => e.stopPropagation()}
                                         aria-label="Repositório no GitHub"
-                                        className="glass-dark flex h-11 w-11 items-center justify-center rounded-full text-base-bg transition-transform duration-300 hover:scale-105"
+                                        className="glass-liquid-dark flex h-11 w-11 items-center justify-center rounded-full text-base-bg transition-transform duration-300 hover:scale-105"
                                     >
                                         <Icon icon={githubIcon} size={18} />
                                     </a>
@@ -103,7 +103,7 @@ const FeaturedProject = ({ project, tag }: FeaturedProjectProps) => {
                                         rel="noopener noreferrer"
                                         onClick={(e) => e.stopPropagation()}
                                         aria-label={`Abrir ${project.title}`}
-                                        className="glass-dark flex h-11 w-11 items-center justify-center rounded-full text-base-bg transition-transform duration-300 hover:scale-105"
+                                        className="glass-liquid-dark flex h-11 w-11 items-center justify-center rounded-full text-base-bg transition-transform duration-300 hover:scale-105"
                                     >
                                         <Icon icon={arrowRightUpBoldDuotone} size={20} />
                                     </a>
