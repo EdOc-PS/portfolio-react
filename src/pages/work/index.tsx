@@ -11,6 +11,15 @@ import type { Project } from "@/pages/work/projects"
 import { GetRequest } from "@/service/getRequest"
 import lightbulbSticker from "@/assets/stickers/product.png"
 
+// Painel de destaque: showreel com todos os projetos (fixo, não vem do banco).
+const SHOWREEL: Project = {
+    _id: "showreel",
+    title: "Showreel",
+    description: "",
+    technologies: [],
+    video: "/showreel.mp4",
+}
+
 const Work = () => {
     const [projects, setProjects] = useState<Project[]>([])
     const [loading, setLoading] = useState(true)
@@ -21,9 +30,8 @@ const Work = () => {
             .finally(() => setLoading(false))
     }, [])
 
-    // Durante o loading mostra skeletons nos 5 slots; depois só os projetos existentes.
-    const slot = (i: number): Project | undefined | null => (loading ? undefined : (projects[i] ?? null))
-    const featured = slot(0)
+    // Cards da grade: cada projeto ocupa o slot do seu `order` (1 a 4). Loading mostra skeletons; slot sem projeto some.
+    const slot = (i: number): Project | undefined | null => (loading ? undefined : (projects.find((p) => p.order === i) ?? null))
     const s1 = slot(1), s2 = slot(2), s3 = slot(3), s4 = slot(4)
 
     return (
@@ -70,8 +78,8 @@ const Work = () => {
                 </Reveal>
             </section>
 
-            {/* Projeto em destaque */}
-            {featured !== null && <FeaturedProject project={featured ?? undefined} tag="Projeto em destaque" />}
+            {/* Showreel (destaque) */}
+            <FeaturedProject project={SHOWREEL} tag="Todos os projetos" />
 
             {/* Texto + estatísticas */}
             <Reveal delay={0.24}>
