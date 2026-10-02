@@ -14,8 +14,8 @@ const MobileHeader = ({ overFooter = false }: MobileHeaderProps) => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <header className="md:hidden fixed top-0 left-0 w-full z-50">
-            <div className={`flex items-center justify-between px-5 py-4 ${overFooter ? "glass-dark" : "glass"}`}>
+        <header className="md:hidden fixed top-0 left-0 w-full z-50 px-3 pt-3">
+            <div className={`flex items-center justify-between rounded-full px-5 py-3 ${overFooter ? "glass-liquid-dark" : "glass-liquid"}`}>
                 <NavLink
                     to="/"
                     className={`text-xl font-extrabold tracking-tight transition-colors duration-300 ${overFooter ? "text-base-bg" : "text-base-ink"
@@ -61,7 +61,7 @@ const MobileHeader = ({ overFooter = false }: MobileHeaderProps) => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -12 }}
                         transition={{ type: "spring", stiffness: 320, damping: 28 }}
-                        className={`mx-4 mt-2 flex flex-col gap-2 rounded-3xl p-3 ${overFooter ? "glass-dark" : "glass"}`}
+                        className={`mt-2 flex flex-col gap-1 rounded-3xl p-2 ${overFooter ? "glass-liquid-dark" : "glass-liquid"}`}
                     >
                         {NAV_ITEMS.map((item) => (
                             <NavLink
@@ -69,7 +69,7 @@ const MobileHeader = ({ overFooter = false }: MobileHeaderProps) => {
                                 to={item.to}
                                 onClick={() => setIsOpen(false)}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-3 rounded-2xl px-4 py-3 text-lg font-bold transition-colors duration-300 ${isActive ? "text-brand-purple" : overFooter ? "text-base-bg" : "text-base-ink"
+                                    `flex items-center gap-3 rounded-2xl px-4 py-3 text-lg font-bold transition-colors duration-300 ${overFooter ? "text-base-bg" : "text-base-ink"} ${isActive ? (overFooter ? "bg-white/10" : "bg-base-ink/5") : "opacity-70"
                                     }`
                                 }
                                 style={{ fontFamily: "var(--font-display)" }}

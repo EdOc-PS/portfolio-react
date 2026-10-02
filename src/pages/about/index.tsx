@@ -71,6 +71,11 @@ const About = () => {
     useLayoutEffect(() => {
         const recompute = () => {
             const containerWidth = containerRef.current?.clientWidth ?? 0
+            // Mobile: cards em largura total, um embaixo do outro.
+            if (!window.matchMedia("(min-width: 768px)").matches) {
+                setStyles({})
+                return
+            }
             const widths: Record<string, number> = {}
             TIMELINE.forEach((item) => {
                 widths[item.key] = itemRefs.current[item.key]?.offsetWidth ?? 0
@@ -120,22 +125,22 @@ const About = () => {
     const heroDelay = (index: number) => (HERO_ITEMS - 1 - index) * 0.1
 
     return (
-        <div className="min-h-screen w-full px-6 py-24 sm:px-10">
-            <div className="mx-auto flex w-full max-w-[85rem] flex-col gap-28 pb-32">
+        <div className="min-h-screen w-full px-5 py-12 sm:px-10 md:py-24">
+            <div className="mx-auto flex w-full max-w-[85rem] flex-col gap-16 pb-20 md:gap-28 md:pb-32">
                 <Reveal delay={heroDelay(0)}>
                     <h1
-                        className="text-center text-8xl sm:text-9xl md:text-[10rem] font-extrabold leading-[0.95] text-base-ink"
+                        className="text-center text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-extrabold leading-[0.95] text-base-ink"
                         style={{ fontFamily: "var(--font-display)" }}
                     >
                         Sou o Eduardo.
                     </h1>
                 </Reveal>
 
-                <div className="flex flex-col items-center gap-28 sm:flex-row sm:items-start">
+                <div className="flex flex-col items-center gap-14 md:flex-row md:items-start md:gap-16 lg:gap-28">
                     <Reveal delay={heroDelay(1)}>
-                        <div className="relative">
+                        <div className="relative w-[min(385px,calc(100vw-2.5rem))]">
                             <div
-                                className="relative flex h-[385px] w-[385px] shrink-0 items-end justify-center overflow-hidden rounded-t-full"
+                                className="relative flex aspect-square w-[min(385px,100%)] shrink-0 items-end justify-center overflow-hidden rounded-t-full"
                                 style={{
                                     background:
                                         [
@@ -154,15 +159,15 @@ const About = () => {
                                 src={webSticker}
                                 alt=""
                                 aria-hidden="true"
-                                className="pointer-events-none absolute -bottom-6 -right-20 hidden h-32 w-32 object-contain sm:block"
+                                className="pointer-events-none absolute -bottom-6 -right-20 hidden h-32 w-32 object-contain md:block"
                             />
                         </div>
                     </Reveal>
 
-                    <div className="flex flex-1 flex-col gap-16">
+                    <div className="flex flex-1 flex-col gap-6 md:gap-16">
                         <Reveal delay={heroDelay(2)}>
                             <h2
-                                className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-base-ink"
+                                className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight text-base-ink"
                                 style={{ fontFamily: "var(--font-display)" }}
                             >
                                 Sou desenvolvedor, apaixonado por transformar ideias em produtos digitais reais.
@@ -188,9 +193,9 @@ const About = () => {
             </div>
 
             <Reveal delay={0.1}>
-                <section className="mx-auto flex w-full max-w-[85rem] flex-col items-center gap-6 px-6 sm:px-10 pt-16 pb-20 text-center">
+                <section className="mx-auto flex w-full max-w-[85rem] flex-col items-center gap-6 md:px-10 pt-8 pb-12 md:pt-16 md:pb-20 text-center">
                     <h2
-                        className="text-6xl sm:text-7xl md:text-8xl font-extrabold leading-[0.95]"
+                        className="text-5xl sm:text-7xl md:text-8xl font-extrabold leading-[0.95]"
                         style={{ fontFamily: "var(--font-display)" }}
                     >
                         <span className="text-base-ink">Minha</span>
@@ -202,7 +207,7 @@ const About = () => {
                 </section>
             </Reveal>
 
-            <div ref={containerRef} className="mx-auto flex w-full max-w-[85rem] flex-col gap-6 px-6 pb-24 sm:px-10">
+            <div ref={containerRef} className="mx-auto flex w-full max-w-[85rem] flex-col gap-4 pb-16 md:gap-6 md:px-10 md:pb-24">
                 {[...TIMELINE].reverse().map((item, index) => {
                     const style = styles[item.key]
                     return (
@@ -211,9 +216,9 @@ const About = () => {
                                 ref={(el) => {
                                     itemRefs.current[item.key] = el
                                 }}
-                                className={`glass flex h-[95px] items-center gap-3 whitespace-nowrap rounded-full pl-4 pr-5 sm:gap-4 sm:pl-5 sm:pr-6 ${item.full ? "" : "w-fit"}`}
+                                className={`glass flex min-h-[80px] items-center gap-3 rounded-[2.5rem] py-4 pl-4 pr-6 md:h-[95px] md:gap-4 md:whitespace-nowrap md:rounded-full md:py-0 md:pl-5 md:pr-6 ${item.full ? "" : "md:w-fit"}`}
                                 style={{
-                                    marginLeft: style ? `${style.marginLeft}px` : `${item.leftPct ?? 0}%`,
+                                    marginLeft: style ? `${style.marginLeft}px` : undefined,
                                     width: style?.width !== undefined ? `${style.width}px` : undefined,
                                 }}
                             >
@@ -229,26 +234,30 @@ const About = () => {
                                         {item.label}
                                     </p>
                                     <p className="text-xs text-ink-soft sm:text-sm">
-                                        {item.sub} · {item.years}
+                                        {item.sub}<span className="hidden md:inline"> · {item.years}</span>
                                     </p>
                                 </div>
+
+                                <p className="ml-auto shrink-0 pl-2 text-xl font-extrabold text-base-ink md:hidden" style={{ fontFamily: "var(--font-display)" }}>
+                                    {item.years}
+                                </p>
                             </div>
                         </Reveal>
                     )
                 })}
             </div>
 
-            <Reveal delay={0.1} className="mx-auto w-full max-w-[85rem] px-6 pb-24 sm:px-10">
-                <div className="glass grid grid-cols-1 gap-x-16 gap-y-20 rounded-[3rem] p-12 sm:grid-cols-2 sm:p-24">
+            <Reveal delay={0.1} className="mx-auto w-full max-w-[85rem] pb-16 md:px-10 md:pb-24">
+                <div className="glass grid grid-cols-1 gap-x-16 gap-y-12 md:gap-y-20 rounded-[2rem] p-8 md:grid-cols-2 md:rounded-[3rem] md:p-16 lg:p-24">
                     {SKILLS.map((skill) => (
                         <div key={skill.number} className="flex flex-col gap-4">
                             <p className="text-4xl font-extrabold text-ink-soft/50" style={{ fontFamily: "var(--font-display)" }}>
                                 {skill.number}
                             </p>
-                            <p className="text-3xl font-extrabold text-base-ink sm:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
+                            <p className="text-2xl font-extrabold text-base-ink md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
                                 {skill.title}
                             </p>
-                            <p className="text-xl text-ink-soft">{skill.description}</p>
+                            <p className="text-lg text-ink-soft md:text-xl">{skill.description}</p>
                         </div>
                     ))}
                 </div>

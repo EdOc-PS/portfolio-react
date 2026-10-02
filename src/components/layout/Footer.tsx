@@ -27,7 +27,7 @@ const Footer = () => {
             <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center gap-6 px-6 text-center">
                 <Reveal delay={0.24}>
                     <h2
-                        className="text-7xl sm:text-8xl md:text-9xl font-extrabold leading-tight normal-case"
+                        className="text-6xl sm:text-8xl md:text-9xl font-extrabold leading-tight normal-case"
                         style={{ fontFamily: "var(--font-display)" }}
                     >
                         <span className="text-base-bg">Obrigado</span>{" "}
@@ -36,7 +36,7 @@ const Footer = () => {
                 </Reveal>
 
                 <Reveal delay={0.16}>
-                    <nav className="flex items-center gap-6 pt-2">
+                    <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 pt-2">
                         {NAV_ITEMS.map((item) => (
                             <NavLink
                                 key={item.to}
@@ -75,10 +75,9 @@ const Footer = () => {
 
             <div
                 aria-hidden
-                className="pointer-events-none select-none whitespace-nowrap text-right font-extrabold leading-none text-bg-soft/15"
+                className="pointer-events-none select-none whitespace-nowrap text-center text-[25vw] font-extrabold leading-none text-bg-soft/15 md:text-right md:text-[16vw]"
                 style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: "16vw",
                     transform: "translateY(18%)",
                     paddingRight: 0,
                     marginRight: "-0.05em",

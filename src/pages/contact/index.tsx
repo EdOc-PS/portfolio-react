@@ -80,13 +80,13 @@ const Contact = () => {
     }
 
     return (
-        <div className="relative -mx-6 -mt-24 min-h-screen w-[calc(100%+3rem)] overflow-hidden bg-base-ink px-6 py-24 sm:-mx-10 sm:w-[calc(100%+5rem)] sm:px-10 md:-mx-32 md:mt-0 md:w-[calc(100%+16rem)] md:px-32">
-            <Reveal delay={revealDelay(0) + 0.1} className="relative mx-auto flex w-full max-w-[85rem] flex-col items-center gap-6 pt-10 text-center">
+        <div className="relative -mt-24 min-h-screen w-full overflow-hidden bg-base-ink px-5 pt-28 pb-24 sm:px-10 md:-mx-32 md:py-24 md:mt-0 md:w-[calc(100%+16rem)] md:px-32">
+            <Reveal delay={revealDelay(0) + 0.1} className="relative mx-auto flex w-full max-w-[85rem] flex-col items-center gap-6 pt-4 text-center md:pt-10">
                 <h1
                     className="flex flex-wrap items-center justify-center gap-4 text-5xl font-extrabold leading-[1.05] text-base-bg sm:text-7xl md:text-8xl"
                     style={{ fontFamily: "var(--font-display)" }}
                 >
-                    <span className="inline-flex items-center gap-4">
+                    <span className="inline-flex flex-col-reverse items-center gap-2 md:flex-row md:gap-4">
                         Olá, como posso
                         <motion.img
                             src={businessDarkSticker}
@@ -106,11 +106,11 @@ const Contact = () => {
                 </p>
             </Reveal>
 
-            <Reveal delay={revealDelay(1)} className="relative mx-auto w-full max-w-[85rem] pt-24">
+            <Reveal delay={revealDelay(1)} className="relative mx-auto w-full max-w-[85rem] pt-12 md:pt-24">
                 <form
                     onSubmit={handleSubmit}
                     noValidate
-                    className="glass-dark mx-auto flex w-full max-w-2xl flex-col gap-6 rounded-[2.5rem] p-8 sm:p-12"
+                    className="glass-dark mx-auto flex w-full max-w-2xl flex-col gap-6 rounded-[2rem] p-6 sm:rounded-[2.5rem] sm:p-12"
                 >
                     <div className="flex items-center gap-3">
                         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-base-bg/10 text-base-bg">
@@ -212,10 +212,10 @@ const Contact = () => {
                 </form>
             </Reveal>
 
-            <div className="relative mx-auto grid w-full max-w-[85rem] gap-12 pt-80 pb-48 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+            <div className="relative mx-auto grid w-full max-w-[85rem] gap-8 pt-28 pb-24 md:gap-12 md:pt-80 md:pb-48 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
                 <Reveal delay={revealDelay(2)} className="flex flex-col gap-5">
                     <div className="flex items-center gap-4">
-                        <p className="text-4xl font-extrabold text-base-bg sm:text-5xl" style={{ fontFamily: "var(--font-display)" }}>
+                        <p className="text-3xl font-extrabold text-base-bg sm:text-5xl" style={{ fontFamily: "var(--font-display)" }}>
                             Perguntas frequentes
                         </p>
                         <img
@@ -230,7 +230,7 @@ const Contact = () => {
                     </p>
                 </Reveal>
 
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-4 md:gap-6">
                     {FAQ.map((item, index) => {
                         const isOpen = openIndex === index
                         return (
@@ -238,7 +238,7 @@ const Contact = () => {
                                 <button
                                     type="button"
                                     onClick={() => setOpenIndex(isOpen ? null : index)}
-                                    className="flex w-full cursor-pointer items-center justify-between gap-4 px-7 py-6 text-left"
+                                    className="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-5 text-left md:px-7 md:py-6"
                                 >
                                     <span className="text-lg font-bold text-base-bg sm:text-xl" style={{ fontFamily: "var(--font-display)" }}>
                                         {item.question}
@@ -251,7 +251,7 @@ const Contact = () => {
                                 </button>
 
                                 {isOpen && (
-                                    <p className="px-7 pb-6 text-base leading-relaxed text-bg-soft">
+                                    <p className="px-5 pb-5 text-base md:px-7 md:pb-6 leading-relaxed text-bg-soft">
                                         {item.answer}
                                     </p>
                                 )}

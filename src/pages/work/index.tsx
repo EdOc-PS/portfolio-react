@@ -40,10 +40,10 @@ const Work = () => {
             <section className="relative flex min-h-screen w-full flex-col items-center justify-between gap-6 px-6 pt-10 pb-10 text-center">
                 <Reveal delay={0.46}>
                     <h1
-                        className="text-7xl sm:text-8xl md:text-9xl font-extrabold leading-[0.95] text-base-ink"
+                        className="text-6xl sm:text-8xl md:text-9xl font-extrabold leading-[0.95] text-base-ink"
                         style={{ fontFamily: "var(--font-display)" }}
                     >
-                        <span className="inline-flex items-center gap-3">
+                        <span className="inline-flex flex-col-reverse items-center gap-2 md:flex-row md:gap-3">
                             Boas ideias
                             <motion.img
                                 src={lightbulbSticker}
@@ -60,7 +60,7 @@ const Work = () => {
                 </Reveal>
 
                 <Reveal delay={0.36} className="flex flex-col items-center gap-4">
-                    <p className="max-w-2xl text-3xl text-ink-soft" style={{ fontFamily: "var(--font-body)" }}>
+                    <p className="max-w-2xl text-xl text-ink-soft md:text-3xl" style={{ fontFamily: "var(--font-body)" }}>
                         <span className="mb-2 block text-lg font-bold text-base-ink">Albert Einstein</span>
                         “A imaginação é mais importante que o conhecimento, porque o conhecimento é limitado, ao passo que a imaginação abrange o mundo inteiro.”
                     </p>
@@ -83,9 +83,9 @@ const Work = () => {
 
             {/* Texto + estatísticas */}
             <Reveal delay={0.24}>
-                <section className="mx-auto flex w-full max-w-[85rem] flex-col items-center gap-6 px-6 sm:px-10 pt-32 pb-32 text-center">
+                <section className="mx-auto flex w-full max-w-[85rem] flex-col items-center gap-6 px-5 sm:px-10 pt-20 pb-20 md:pt-32 md:pb-32 text-center">
                     <h2
-                        className="text-6xl sm:text-7xl md:text-8xl font-extrabold leading-[0.95]"
+                        className="text-5xl sm:text-7xl md:text-8xl font-extrabold leading-[0.95]"
                         style={{ fontFamily: "var(--font-display)" }}
                     >
                         <span className="text-base-ink">Meus</span>
@@ -95,7 +95,7 @@ const Work = () => {
 
                     <Icon icon={arrowDownBoldDuotone} size={40} />
 
-                    <p className="max-w-2xl text-2xl text-ink-soft">
+                    <p className="max-w-2xl text-lg text-ink-soft md:text-2xl">
                         Uma seleção de trabalhos que mostram como ideias viram produtos: do primeiro rascunho ao detalhe de implementação.
                     </p>
 
