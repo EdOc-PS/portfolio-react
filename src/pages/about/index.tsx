@@ -10,7 +10,7 @@ import type { IconifyIcon } from "@iconify/react/dist/offline"
 import { Icon } from "@/components/ui/Icon"
 import Reveal from "@/components/ui/Reveal"
 import webSticker from "@/assets/stickers/web.png"
-import eduardoPhoto from "@/assets/eduardo.png"
+import eduardoPhoto from "@/assets/edoc.webp"
 
 type TimelineItem = {
     key: string
