@@ -58,27 +58,18 @@
         -webkit-backdrop-filter: blur(28px) saturate(120%);
     }
 
-    /* Liquid glass: vidro translúcido com blur forte, borda clara e brilho interno (menus, sidebar, tags) */
+    /* Liquid glass (receita do header de seanhalpin.xyz): fundo 80% opaco + blur com saturação.
+       A opacidade alta é o que esconde o conteúdo de trás; o blur só dá a cor difusa. */
     .glass-liquid {
-        background: color-mix(in srgb, var(--color-base-bg) 45%, transparent);
-        backdrop-filter: blur(32px) saturate(180%) brightness(1.05);
-        -webkit-backdrop-filter: blur(32px) saturate(180%) brightness(1.05);
-        border: 1px solid color-mix(in srgb, white 55%, transparent);
-        box-shadow:
-            inset 0 1px 1px color-mix(in srgb, white 85%, transparent),
-            inset 0 -1px 1px color-mix(in srgb, var(--color-base-ink) 8%, transparent),
-            0 6px 24px color-mix(in srgb, var(--color-base-ink) 10%, transparent);
+        background: hsla(45, 17%, 95%, 0.8);
+        backdrop-filter: blur(20px) saturate(1.7);
+        -webkit-backdrop-filter: blur(20px) saturate(1.7);
     }
 
     .glass-liquid-dark {
-        background: color-mix(in srgb, var(--color-base-ink) 40%, transparent);
-        backdrop-filter: blur(32px) saturate(180%);
-        -webkit-backdrop-filter: blur(32px) saturate(180%);
-        border: 1px solid color-mix(in srgb, white 14%, transparent);
-        box-shadow:
-            inset 0 1px 1px color-mix(in srgb, white 22%, transparent),
-            inset 0 -1px 1px color-mix(in srgb, black 20%, transparent),
-            0 6px 24px color-mix(in srgb, black 25%, transparent);
+        background: color-mix(in srgb, var(--color-base-ink) 80%, transparent);
+        backdrop-filter: blur(20px) saturate(1.7);
+        -webkit-backdrop-filter: blur(20px) saturate(1.7);
     }
 }
 

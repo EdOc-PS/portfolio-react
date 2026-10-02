@@ -69,7 +69,7 @@ const MobileHeader = ({ overFooter = false }: MobileHeaderProps) => {
                                 to={item.to}
                                 onClick={() => setIsOpen(false)}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-3 rounded-2xl px-4 py-3 text-lg font-bold transition-colors duration-300 ${overFooter ? "text-base-bg" : "text-base-ink"} ${isActive ? (overFooter ? "bg-white/10" : "bg-base-ink/5") : "opacity-70"
+                                    `flex items-center gap-3 rounded-2xl px-4 py-3 text-lg font-bold transition-colors duration-300 ${overFooter ? "text-base-bg" : "text-base-ink"} ${isActive ? (overFooter ? "bg-white/10" : "bg-white/50") : "opacity-70"
                                     }`
                                 }
                                 style={{ fontFamily: "var(--font-display)" }}
