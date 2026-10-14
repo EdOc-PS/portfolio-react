@@ -138,9 +138,9 @@ const About = () => {
 
                 <div className="flex flex-col items-center gap-14 md:flex-row md:items-start md:gap-16 lg:gap-28">
                     <Reveal delay={heroDelay(1)}>
-                        <div className="relative w-[min(385px,calc(100vw-2.5rem))]">
+                        <div className="relative w-[min(24rem,calc(100vw-2.5rem))]">
                             <div
-                                className="relative flex aspect-square w-[min(385px,100%)] shrink-0 items-end justify-center overflow-hidden rounded-t-full"
+                                className="relative flex aspect-square w-[min(24rem,100%)] shrink-0 items-end justify-center overflow-hidden rounded-t-full"
                                 style={{
                                     background:
                                         [
@@ -216,7 +216,7 @@ const About = () => {
                                 ref={(el) => {
                                     itemRefs.current[item.key] = el
                                 }}
-                                className={`glass flex min-h-[80px] items-center gap-3 rounded-[2.5rem] py-4 pl-4 pr-6 md:h-[95px] md:gap-4 md:whitespace-nowrap md:rounded-full md:py-0 md:pl-5 md:pr-6 ${item.full ? "" : "md:w-fit"}`}
+                                className={`glass flex min-h-[80px] items-center gap-3 rounded-[2.5rem] py-4 pl-4 pr-6 md:h-[6rem] md:gap-4 md:whitespace-nowrap md:rounded-full md:py-0 md:pl-5 md:pr-6 ${item.full ? "" : "md:w-fit"}`}
                                 style={{
                                     marginLeft: style ? `${style.marginLeft}px` : undefined,
                                     width: style?.width !== undefined ? `${style.width}px` : undefined,

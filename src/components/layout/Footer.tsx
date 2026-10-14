@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef, useState } from "react"
 import { NavLink } from "react-router-dom"
 import githubIcon from "@iconify-icons/simple-icons/github"
 import linkedinIcon from "@iconify-icons/simple-icons/linkedin"
@@ -13,6 +14,33 @@ const SOCIAL_LINKS = [
 ]
 
 const Footer = () => {
+    const nameRef = useRef<HTMLDivElement>(null)
+    const [nameFontSize, setNameFontSize] = useState<string | undefined>()
+
+    // Mobile: ajusta o tamanho para "Eduardo" ocupar exatamente 100% da largura.
+    useLayoutEffect(() => {
+        const fit = () => {
+            const el = nameRef.current
+            if (!el) return
+            if (window.matchMedia("(min-width: 768px)").matches) {
+                setNameFontSize(undefined)
+                return
+            }
+            el.style.fontSize = "100px"
+            const textWidth = (el.firstElementChild as HTMLElement | null)?.offsetWidth ?? el.scrollWidth
+            const width = el.parentElement?.clientWidth ?? window.innerWidth
+            // Aplica direto no DOM também: se o valor calculado for igual ao do state, o React não re-renderiza
+            // e o tamanho de medição (100px) ficaria aplicado.
+            const size = `${(100 * width) / textWidth}px`
+            el.style.fontSize = size
+            setNameFontSize(size)
+        }
+        fit()
+        document.fonts?.ready?.then(fit)
+        window.addEventListener("resize", fit)
+        return () => window.removeEventListener("resize", fit)
+    }, [])
+
     return (
         <footer className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden bg-base-ink pt-16">
             <div
@@ -74,16 +102,16 @@ const Footer = () => {
             </div>
 
             <div
+                ref={nameRef}
                 aria-hidden
-                className="pointer-events-none select-none whitespace-nowrap text-center text-[25vw] font-extrabold leading-none text-bg-soft/15 md:text-right md:text-[16vw]"
+                className="pointer-events-none select-none whitespace-nowrap text-center font-extrabold leading-none text-bg-soft/15 md:-mr-[0.05em] md:text-right md:text-[16vw]"
                 style={{
                     fontFamily: "var(--font-display)",
                     transform: "translateY(18%)",
-                    paddingRight: 0,
-                    marginRight: "-0.05em",
+                    fontSize: nameFontSize,
                 }}
             >
-                Eduardo
+                <span>Eduardo</span>
             </div>
         </footer>
     )

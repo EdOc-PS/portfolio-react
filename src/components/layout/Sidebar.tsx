@@ -22,7 +22,7 @@ const Sidebar = ({ overFooter = false, dark = false }: SidebarProps) => {
     }
 
     return (
-        <aside className="hidden md:flex fixed left-0 top-0 h-screen w-32 flex-col items-center z-50">
+        <aside className="hidden md:flex fixed left-0 top-0 h-screen w-[128px] flex-col items-center z-50">
             <NavLink
                 to="/"
                 className={`mt-8 text-2xl font-extrabold tracking-tight transition-all duration-300 hover:scale-105 ${dark ? "text-base-bg" : "text-base-ink"
@@ -33,7 +33,7 @@ const Sidebar = ({ overFooter = false, dark = false }: SidebarProps) => {
             </NavLink>
 
             <nav
-                className={`flex flex-col gap-3 flex-1 items-center justify-center transition-opacity duration-300 ${overFooter ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
+                className={`flex flex-col gap-[12px] flex-1 items-center justify-center transition-opacity duration-300 ${overFooter ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
                     }`}
             >
                 {NAV_ITEMS.map((item, index) => (
@@ -48,7 +48,7 @@ const Sidebar = ({ overFooter = false, dark = false }: SidebarProps) => {
                         <motion.div whileHover={{ scale: 1.12 }} transition={BUBBLE_SPRING}>
                             <NavLink
                                 to={item.to}
-                                className={`flex items-center justify-center w-20 h-20 rounded-3xl transition-colors duration-300 ${dark
+                                className={`flex items-center justify-center w-[80px] h-[80px] rounded-[24px] transition-colors duration-300 ${dark
                                     ? "glass-liquid-dark text-base-bg visited:text-base-bg"
                                     : "glass-liquid text-ink-soft visited:text-ink-soft hover:text-base-ink"
                                     }`}
@@ -58,7 +58,7 @@ const Sidebar = ({ overFooter = false, dark = false }: SidebarProps) => {
                         </motion.div>
 
                         <span
-                            className={`pointer-events-none absolute left-28 whitespace-nowrap rounded-full px-5 py-2.5 text-lg font-bold opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 ${dark ? "glass-liquid-dark text-base-bg" : "glass-liquid text-base-ink"
+                            className={`pointer-events-none absolute left-[112px] whitespace-nowrap rounded-full px-[20px] py-[10px] text-[18px] font-bold opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 ${dark ? "glass-liquid-dark text-base-bg" : "glass-liquid text-base-ink"
                                 }`}
                             style={{ fontFamily: "var(--font-display)" }}
                         >

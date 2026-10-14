@@ -14,7 +14,7 @@ const SOCIAL_LINKS = [
 
 const NotFound = () => {
     return (
-        <div className="relative -mx-6 -mt-24 flex min-h-screen w-[calc(100%+3rem)] flex-col justify-between overflow-hidden bg-base-bg pt-16 sm:-mx-10 sm:w-[calc(100%+5rem)] md:-mx-32 md:mt-0 md:w-[calc(100%+16rem)]">
+        <div className="relative -mx-6 -mt-24 flex min-h-screen w-[calc(100%+3rem)] flex-col justify-between overflow-hidden bg-base-bg pt-16 sm:-mx-10 sm:w-[calc(100%+5rem)] md:-mx-[128px] md:mt-0 md:w-[calc(100%+256px)]">
             <div
                 aria-hidden
                 className="absolute right-6 top-6 h-0.5 rounded-full md:right-10 md:top-10"

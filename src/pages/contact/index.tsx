@@ -80,7 +80,7 @@ const Contact = () => {
     }
 
     return (
-        <div className="relative -mt-24 min-h-screen w-full overflow-hidden bg-base-ink px-5 pt-28 pb-24 sm:px-10 md:-mx-32 md:py-24 md:mt-0 md:w-[calc(100%+16rem)] md:px-32">
+        <div className="relative -mt-24 min-h-screen w-full overflow-hidden bg-base-ink px-5 pt-28 pb-24 sm:px-10 md:-mx-[128px] md:py-24 md:mt-0 md:w-[calc(100%+256px)] md:px-[128px]">
             <Reveal delay={revealDelay(0) + 0.1} className="relative mx-auto flex w-full max-w-[85rem] flex-col items-center gap-6 pt-4 text-center md:pt-10">
                 <h1
                     className="flex flex-wrap items-center justify-center gap-4 text-5xl font-extrabold leading-[1.05] text-base-bg sm:text-7xl md:text-8xl"

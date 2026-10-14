@@ -76,7 +76,7 @@
 
 body {
     font-family: var(--font-body);
-    font-size: 18px;
+    font-size: 1.125rem;
     color: var(--color-base-ink);
     background-color: var(--color-base-bg);
 }
@@ -84,6 +84,16 @@ body {
 /* Esconde a scrollbar nativa — navegação vertical é sinalizada só pelo ScrollIndicator */
 html {
     scrollbar-width: none;
+}
+
+/* Escala proporcional para telas md+ (notebook → monitor): todo o layout é em rem,
+   então reduzir o font-size raiz encolhe fontes, cards e espaçamentos mantendo a mesma identidade.
+   1920px+ = 16px (tamanho de referência), notebook ~1366–1536px ≈ 12–13px, mínimo 12px.
+   Breakpoints do Tailwind usam rem do navegador, não são afetados. */
+@media (min-width: 48rem) {
+    html {
+        font-size: clamp(12px, 0.8333vw, 16px);
+    }
 }
 
 html::-webkit-scrollbar {

@@ -38,7 +38,7 @@ const FeaturedProject = ({ project, tag }: FeaturedProjectProps) => {
     const detailHref = toAbsoluteUrl(project?.live) || githubHref
 
     return (
-        <section ref={containerRef} className="relative h-[250vh] md:-mx-32">
+        <section ref={containerRef} className="relative h-[250vh] md:-mx-[128px]">
             <div className="sticky top-0 h-screen w-full overflow-hidden">
                 <motion.div
                     onClick={() => detailHref && window.open(detailHref, "_blank", "noopener,noreferrer")}

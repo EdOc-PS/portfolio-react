@@ -39,13 +39,13 @@ function AppShell() {
   }, []);
 
   return (
-    <main className='relative min-h-screen bg-base-bg text-base-ink flex flex-col'>
+    <main className='relative min-h-screen overflow-x-clip bg-base-bg text-base-ink flex flex-col'>
       <Sidebar overFooter={hideNav} dark={isDark} />
       <MobileHeader overFooter={isDark} />
       <ScrollIndicator overFooter={isDark} />
 
       <motion.div
-        className="relative flex-1 pt-24 md:pt-0 md:px-32 w-full"
+        className="relative flex-1 pt-24 md:pt-0 md:px-[128px] w-full"
         style={isKnownRoute ? { backgroundColor: transitionBg } : undefined}
       >
         <MainRoutes />
