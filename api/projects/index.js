@@ -9,7 +9,8 @@ export default async function handler(req, res) {
   try {
     await connectDB();
 
-    // `order` fixa a posição (0 a 3, posição na grade); projetos sem `order` vão para o fim.
+    // `order` define a posição (0 = primeiro card, à esquerda; crescente daí em diante).
+    // Sem `order` vai pro fim. O front exibe só os 5 primeiros dessa lista.
     const projects = (await Project.find().lean()).sort(
       (a, b) => (a.order ?? 9999) - (b.order ?? 9999)
     );

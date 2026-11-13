@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const ProjectSchema = new mongoose.Schema({
   title: String,
+  subtitle: String,
   description: String,
   technologies: [String],
   github: String,
@@ -9,7 +10,6 @@ const ProjectSchema = new mongoose.Schema({
   image: String,
   video: String,
   order: Number,
-  color: { type: String, enum: ["light", "dark"], default: "light" },
 });
 
 export default mongoose.models.Project ||

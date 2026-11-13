@@ -1,267 +1,170 @@
-import { useLayoutEffect, useRef, useState } from "react"
-import arrowDownBoldDuotone from "@iconify-icons/solar/arrow-down-bold-duotone"
-import diplomaBoldDuotone from "@iconify-icons/solar/diploma-bold-duotone"
-import diplomaVerifiedBoldDuotone from "@iconify-icons/solar/diploma-verified-bold-duotone"
-import serverBoldDuotone from "@iconify-icons/solar/server-bold-duotone"
-import presentationGraphBoldDuotone from "@iconify-icons/solar/presentation-graph-bold-duotone"
-import databaseBoldDuotone from "@iconify-icons/solar/database-bold-duotone"
-import codeBoldDuotone from "@iconify-icons/solar/code-bold-duotone"
-import type { IconifyIcon } from "@iconify/react/dist/offline"
-import { Icon } from "@/components/ui/Icon"
-import Reveal from "@/components/ui/Reveal"
-import webSticker from "@/assets/stickers/web.png"
-import eduardoPhoto from "@/assets/edoc.webp"
+import { useEffect, useState } from "react"
+import { motion } from "motion/react"
+import { ABOUT } from "@/data/about"
+import { revealFromCenter } from "@/lib/motion"
+import { GetRequest } from "@/service/getRequest"
+import PeekSticker from "@/components/ui/PeekSticker"
 
-type TimelineItem = {
-    key: string
-    label: string
-    sub: string
-    years: string
-    icon: IconifyIcon
-    leftPct?: number
-    startAfter?: string
-    endWith?: string
-    full?: boolean
-    iconColor: string
-}
+const Label = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
+    <div className={`text-xs font-semibold uppercase tracking-wider text-muted ${className}`}>{children}</div>
+)
 
-const TIMELINE: TimelineItem[] = [
-    { key: "tecnico", label: "Técnico de TI", sub: "IFMG", years: "20–22", leftPct: 0, iconColor: "var(--color-accent-pink)", icon: diplomaBoldDuotone },
-    { key: "graduacao", label: "Graduação em Sistemas de Informação", sub: "IFMG", years: "23–26", startAfter: "tecnico", full: true, iconColor: "var(--color-accent-blue)", icon: diplomaVerifiedBoldDuotone },
-    { key: "assessor", label: "Assessor de Marketing e TI", sub: "Office Jr. Consultoria", years: "24", leftPct: 24, iconColor: "var(--color-accent-orange)", icon: presentationGraphBoldDuotone },
-    { key: "estagio", label: "Estágio em TI", sub: "Hospital FOB", years: "24", endWith: "assessor", iconColor: "var(--color-accent-green)", icon: serverBoldDuotone },
-    { key: "analista", label: "Analista de Integrações", sub: "CLI", years: "24–25", startAfter: "estagio", iconColor: "var(--color-accent-blue)", icon: databaseBoldDuotone },
-    { key: "dev", label: "Dev. Fullstack", sub: "ZTOtech", years: "25–atual", startAfter: "analista", full: true, iconColor: "var(--color-accent-orange)", icon: codeBoldDuotone },
-]
+const display = { fontFamily: "var(--font-display)" }
+/** Níveis 0–4 do GitHub (NONE → FOURTH_QUARTILE) */
+const LEVEL_BG = ["bg-line", "bg-accent-purple/25", "bg-accent-purple/50", "bg-accent-purple/75", "bg-accent-purple"]
 
-type TimelineStyle = { marginLeft: number; width?: number }
-
-const SKILLS = [
-    {
-        number: "01",
-        title: "Linguagens",
-        color: "var(--color-accent-pink)",
-        description: "Trabalho com React, TypeScript, React Native, Java, Next.js e Node.js, tanto no front-end quanto no back-end.",
-    },
-    {
-        number: "02",
-        title: "Carreira",
-        color: "var(--color-accent-blue)",
-        description: "Do técnico em TI ao estágio no Hospital FOB, passando por integrações na CLI, até atuar hoje como Dev. Fullstack na ZTOtech.",
-    },
-    {
-        number: "03",
-        title: "Ferramentas",
-        color: "var(--color-accent-orange)",
-        description: "Já usei Git, Vercel e Godot, além de ferramentas e agentes de IA no dia a dia, sempre com revisão crítica do código gerado.",
-    },
-    {
-        number: "04",
-        title: "Aprendizado contínuo",
-        color: "var(--color-accent-green)",
-        description: "Busco qualidade, segurança e crescimento técnico contínuo em cada projeto que passo.",
-    },
-]
-
+/**
+ * Bento da aba Sobre.
+ * Linha de cima (mais alta): destaque · perfil · GitHub
+ * Linha de baixo (4 cards): stack · especialidade · tempo programando · redes
+ */
 const About = () => {
-    const containerRef = useRef<HTMLDivElement>(null)
-    const itemRefs = useRef<Record<string, HTMLDivElement | null>>({})
-    const [styles, setStyles] = useState<Record<string, TimelineStyle>>({})
+    const { persona, stack, category, stats, socials } = ABOUT
+    const [github, setGithub] = useState(ABOUT.github)
+    const [hero, setHero] = useState(ABOUT.hero)
+    const [peek, setPeek] = useState(false)
 
-    useLayoutEffect(() => {
-        const recompute = () => {
-            const containerWidth = containerRef.current?.clientWidth ?? 0
-            // Mobile: cards em largura total, um embaixo do outro.
-            if (!window.matchMedia("(min-width: 768px)").matches) {
-                setStyles({})
-                return
-            }
-            const widths: Record<string, number> = {}
-            TIMELINE.forEach((item) => {
-                widths[item.key] = itemRefs.current[item.key]?.offsetWidth ?? 0
-            })
-
-            const next: Record<string, TimelineStyle> = {}
-            TIMELINE.forEach((item) => {
-                let marginLeft = 0
-                if (item.leftPct !== undefined) {
-                    marginLeft = (item.leftPct / 100) * containerWidth
-                } else if (item.startAfter) {
-                    const target = next[item.startAfter]
-                    marginLeft = target.marginLeft + widths[item.startAfter]
-                } else if (item.endWith) {
-                    const target = next[item.endWith]
-                    marginLeft = target.marginLeft + widths[item.endWith] - widths[item.key]
-                }
-
-                next[item.key] = {
-                    marginLeft,
-                    width: item.full ? containerWidth - marginLeft : undefined,
-                }
-            })
-
-            setStyles(next)
-        }
-
-        recompute()
-        window.addEventListener("resize", recompute)
-
-        const observer = new ResizeObserver(() => recompute())
-        Object.values(itemRefs.current).forEach((el) => {
-            if (el) observer.observe(el)
+    // Ano + frase sorteados no back (coleção "phrases" do Mongo); se falhar, fica o fallback de about.ts
+    useEffect(() => {
+        GetRequest("/api/phrases/random").then((data) => {
+            if (data?.phrase) setHero((h) => ({ ...h, ...data.phrase }))
         })
-        if (containerRef.current) observer.observe(containerRef.current)
-
-        document.fonts?.ready?.then(() => recompute())
-
-        return () => {
-            window.removeEventListener("resize", recompute)
-            observer.disconnect()
-        }
+        // Contribuições reais do GitHub; se falhar, ficam os quadradinhos de exemplo
+        GetRequest("/api/github").then((data) => {
+            if (data?.levels?.length)
+                setGithub((g) => ({ ...g, levels: data.levels, subtitle: `${data.total} contribuições nas últimas 5 semanas.` }))
+        })
     }, [])
 
-    const timelineDelay = (index: number) => index * 0.06
-    const HERO_ITEMS = 5
-    const heroDelay = (index: number) => (HERO_ITEMS - 1 - index) * 0.1
-
     return (
-        <div className="min-h-screen w-full px-5 py-12 sm:px-10 md:py-24">
-            <div className="mx-auto flex w-full max-w-[85rem] flex-col gap-16 pb-20 md:gap-28 md:pb-32">
-                <Reveal delay={heroDelay(0)}>
-                    <h1
-                        className="text-center text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-extrabold leading-[0.95] text-base-ink"
-                        style={{ fontFamily: "var(--font-display)" }}
-                    >
-                        Sou o Eduardo.
-                    </h1>
-                </Reveal>
+        <div className="grid h-full w-full grid-cols-1 gap-4 overflow-y-auto pb-4 md:grid-cols-2 md:pb-0 lg:grid-cols-4 lg:grid-rows-[1.45fr_1fr] lg:overflow-visible">
+            {/* ── Linha de cima ── */}
 
-                <div className="flex flex-col items-center gap-14 md:flex-row md:items-start md:gap-16 lg:gap-28">
-                    <Reveal delay={heroDelay(1)}>
-                        <div className="relative w-[min(24rem,calc(100vw-2.5rem))]">
-                            <div
-                                className="relative flex aspect-square w-[min(24rem,100%)] shrink-0 items-end justify-center overflow-hidden rounded-t-full"
-                                style={{
-                                    background:
-                                        [
-                                            "radial-gradient(circle at 28% 18%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 38%)",
-                                            "linear-gradient(165deg, #E4F0FC 0%, #8CC0EE 35%, #7F8FCB 70%, #5A5FA8 100%)",
-                                        ].join(", "),
-                                }}
-                            >
-                                <img
-                                    src={eduardoPhoto}
-                                    alt="Foto de Eduardo Octávio"
-                                    className="h-full w-full translate-y-8 select-none object-cover object-bottom"
-                                />
-                            </div>
-                            <img
-                                src={webSticker}
-                                alt=""
-                                aria-hidden="true"
-                                className="pointer-events-none absolute -bottom-6 -right-20 hidden h-32 w-32 object-contain md:block"
-                            />
-                        </div>
-                    </Reveal>
-
-                    <div className="flex flex-1 flex-col gap-6 md:gap-16">
-                        <Reveal delay={heroDelay(2)}>
-                            <h2
-                                className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight text-base-ink"
-                                style={{ fontFamily: "var(--font-display)" }}
-                            >
-                                Sou desenvolvedor, apaixonado por transformar ideias em produtos digitais reais.
-                            </h2>
-                        </Reveal>
-
-                        <Reveal delay={heroDelay(3)}>
-                            <p className="text-2xl text-ink-soft">
-                                Atuo tanto no front-end quanto no back-end, com experiência prática em Node.js, TypeScript
-                                e React Native. Construo e mantenho APIs REST, integrações entre sistemas e aplico boas
-                                práticas de Clean Code e organização em camadas.
-                            </p>
-                        </Reveal>
-
-                        <Reveal delay={heroDelay(4)}>
-                            <p className="text-2xl text-ink-soft">
-                                Hoje, uso ferramentas e agentes de IA no meu fluxo de trabalho diário, sempre com revisão
-                                crítica do código gerado — buscando qualidade, segurança e crescimento técnico contínuo.
-                            </p>
-                        </Reveal>
+            {/* Destaque */}
+            <motion.div {...revealFromCenter(0)} className="card relative flex min-h-[300px] flex-col justify-end overflow-hidden !bg-none !bg-black p-7 md:col-span-2 lg:min-h-0">
+                {/* Mesma imagem fluida do template (Unsplash), com o mesmo tratamento */}
+                <img
+                    src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop"
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover opacity-60 mix-blend-lighten"
+                />
+                <div className="relative">
+                    <div className="mb-1 text-xl font-medium text-accent-lime">{hero.kicker}</div>
+                    <div className="-ml-1 text-7xl font-bold leading-[0.85] tracking-tighter lg:text-[112px]" style={display}>
+                        {hero.year}
+                    </div>
+                    <div className="glass mt-5 p-5">
+                        <p className="text-sm font-medium opacity-90 lg:text-base">{hero.text}</p>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
-            <Reveal delay={0.1}>
-                <section className="mx-auto flex w-full max-w-[85rem] flex-col items-center gap-6 md:px-10 pt-8 pb-12 md:pt-16 md:pb-20 text-center">
-                    <h2
-                        className="text-5xl sm:text-7xl md:text-8xl font-extrabold leading-[0.95]"
-                        style={{ fontFamily: "var(--font-display)" }}
-                    >
-                        <span className="text-base-ink">Minha</span>
+            {/* Perfil (card branco, mesma estrutura do template) */}
+            <motion.div {...revealFromCenter(1)} onMouseEnter={() => setPeek(true)}
+                onMouseLeave={() => setPeek(false)}
+                className="card relative flex min-h-[340px] flex-col !bg-none !bg-white p-6 2xl:p-7 text-black lg:min-h-0">
+                {/* Easter egg: hover no card branco faz o sticker espiar pelo canto superior direito */}
+                <PeekSticker src={persona.sticker} show={peek} />
+
+                <div className="flex flex-1 flex-col items-center justify-center text-center">
+                    <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-black 2xl:mb-4 2xl:h-20 2xl:w-20">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7 2xl:h-10 2xl:w-10">
+                            <polyline points="16 18 22 12 16 6" />
+                            <polyline points="8 6 2 12 8 18" />
+                        </svg>
+                    </div>
+                    <div className="mb-1 text-xs font-semibold uppercase tracking-wide opacity-60">{persona.prefix}</div>
+                    <div className="text-2xl font-bold leading-tight lg:text-[28px]" style={display}>
+                        {persona.title[0]}
                         <br />
-                        <span className="text-ink-soft">trajetória</span>
-                    </h2>
+                        {persona.title[1]}
+                    </div>
+                </div>
 
-                    <Icon icon={arrowDownBoldDuotone} size={40} />
-                </section>
-            </Reveal>
+                <p className="border-t border-black/10 pt-4 text-xs font-medium leading-relaxed lg:text-sm">{persona.text}</p>
+            </motion.div>
 
-            <div ref={containerRef} className="mx-auto flex w-full max-w-[85rem] flex-col gap-4 pb-16 md:gap-6 md:px-10 md:pb-24">
-                {[...TIMELINE].reverse().map((item, index) => {
-                    const style = styles[item.key]
-                    return (
-                        <Reveal key={item.key} delay={timelineDelay(index)}>
-                            <div
-                                ref={(el) => {
-                                    itemRefs.current[item.key] = el
-                                }}
-                                className={`glass flex min-h-[80px] items-center gap-3 rounded-[2.5rem] py-4 pl-4 pr-6 md:h-[6rem] md:gap-4 md:whitespace-nowrap md:rounded-full md:py-0 md:pl-5 md:pr-6 ${item.full ? "" : "md:w-fit"}`}
-                                style={{
-                                    marginLeft: style ? `${style.marginLeft}px` : undefined,
-                                    width: style?.width !== undefined ? `${style.width}px` : undefined,
-                                }}
-                            >
-                                <div
-                                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-base-bg sm:h-12 sm:w-12"
-                                    style={{ color: item.iconColor }}
-                                >
-                                    <Icon icon={item.icon} size={19} />
-                                </div>
+            {/* GitHub */}
+            <motion.div {...revealFromCenter(2)} className="card flex min-h-[300px] flex-col p-7 lg:min-h-0">
+                <Label className="mb-1">{github.label}</Label>
+                <div className="text-2xl font-bold lg:text-[28px]">{github.title}</div>
+                <div className="mb-4 text-sm text-muted">{github.subtitle}</div>
+                <div className="mt-auto grid grid-cols-7 gap-1.5">
+                    {github.levels.map((lvl, i) => (
+                        <div key={i} className={`aspect-square rounded ${LEVEL_BG[lvl]}`} />
+                    ))}
+                </div>
+            </motion.div>
 
-                                <div className="min-w-0">
-                                    <p className="text-sm font-bold text-base-ink sm:text-base" style={{ fontFamily: "var(--font-display)" }}>
-                                        {item.label}
-                                    </p>
-                                    <p className="text-xs text-ink-soft sm:text-sm">
-                                        {item.sub}<span className="hidden md:inline"> · {item.years}</span>
-                                    </p>
-                                </div>
+            {/* ── Linha de baixo ── */}
 
-                                <p className="ml-auto shrink-0 pl-2 text-xl font-extrabold text-base-ink md:hidden" style={{ fontFamily: "var(--font-display)" }}>
-                                    {item.years}
-                                </p>
-                            </div>
-                        </Reveal>
-                    )
-                })}
-            </div>
-
-            <Reveal delay={0.1} className="mx-auto w-full max-w-[85rem] pb-16 md:px-10 md:pb-24">
-                <div className="glass grid grid-cols-1 gap-x-16 gap-y-12 md:gap-y-20 rounded-[2rem] p-8 md:grid-cols-2 md:rounded-[3rem] md:p-16 lg:p-24">
-                    {SKILLS.map((skill) => (
-                        <div key={skill.number} className="flex flex-col gap-4">
-                            <p className="text-4xl font-extrabold text-ink-soft/50" style={{ fontFamily: "var(--font-display)" }}>
-                                {skill.number}
-                            </p>
-                            <p className="text-2xl font-extrabold text-base-ink md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
-                                {skill.title}
-                            </p>
-                            <p className="text-lg text-ink-soft md:text-xl">{skill.description}</p>
+            {/* Stack (só ícones, sem porcentagem) */}
+            <motion.div {...revealFromCenter(3)} className="card flex flex-col p-6">
+                <h3 className="mb-auto text-lg">Stack principal</h3>
+                <div className="mt-4 grid grid-cols-5 gap-2">
+                    {stack.map(({ name, icon: Icon }) => (
+                        <div
+                            key={name}
+                            title={name}
+                            className="flex aspect-square w-full max-w-11 items-center justify-center rounded-full border border-line bg-white/5 text-white"
+                        >
+                            <Icon size={22} />
                         </div>
                     ))}
                 </div>
-            </Reveal>
+            </motion.div>
+
+            {/* Especialidade — mesmo tratamento do card laranja da referência, em roxo */}
+            <motion.div {...revealFromCenter(4)} className="card relative flex min-h-[200px] flex-col justify-between overflow-hidden !bg-none !bg-[#7928ca] p-6 text-black lg:min-h-0">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#d8b4fe_0%,#a855f7_35%,transparent_75%),linear-gradient(135deg,#5b21b6,#9333ea)] opacity-90" />
+                <div className="relative">
+                    <div className="mb-1 text-xs font-bold uppercase">{category.label}</div>
+                    <div className="text-2xl font-bold lg:text-3xl" style={display}>
+                        {category.title}
+                    </div>
+                </div>
+                <div className="relative">
+                    <div className="mb-2 text-xs font-semibold">{category.paletteLabel}</div>
+                    <div className="flex gap-2">
+                        {category.palette.map((c) => (
+                            <div key={c} className="h-9 w-9 rounded-full border-2 border-black" style={{ background: c }} />
+                        ))}
+                    </div>
+                </div>
+            </motion.div>
+
+            {/* Projetos entregues */}
+            <motion.div {...revealFromCenter(5)} className="card flex min-h-[200px] flex-col justify-between p-6 lg:min-h-0">
+                <Label>{stats.label}</Label>
+                <div>
+                    <div
+                        className="mb-3 whitespace-nowrap bg-gradient-to-br from-accent-purple to-accent-pink bg-clip-text text-4xl font-bold leading-none text-transparent 2xl:text-5xl"
+                        style={display}
+                    >
+                        {stats.value}
+                    </div>
+                    <span className="inline-flex rounded-full bg-accent-lime/10 px-3 py-1 text-xs font-semibold text-accent-lime">{stats.badge}</span>
+                </div>
+            </motion.div>
+
+            {/* Redes sociais */}
+            <motion.div {...revealFromCenter(6)} className="card flex flex-col p-6">
+                <h3 className="mb-auto text-lg">Redes</h3>
+                <div className="mt-4 flex flex-col gap-2">
+                    {socials.map(({ name, href, icon: Icon }) => (
+                        <a
+                            key={name}
+                            href={href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center gap-3 rounded-full border border-line px-3 py-2 text-sm font-semibold transition-colors hover:border-line-hover hover:bg-white/5"
+                        >
+                            <Icon size={20} />
+                            {name}
+                        </a>
+                    ))}
+                </div>
+            </motion.div>
         </div>
     )
 }
