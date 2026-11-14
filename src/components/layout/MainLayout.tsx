@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { fetchPhrase } from "@/service/phrase"
 import { useLocation, useOutlet } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
 import Header from "@/components/layout/Header"
@@ -15,6 +16,11 @@ const MainLayout = () => {
     const [cursorActive, setCursorActive] = useState(false)
     // useOutlet "congela" a página que está saindo, pra animação de saída funcionar
     const outlet = useOutlet({ setCursorActive } satisfies LayoutContext)
+
+    // Já busca a frase do card "Momentos que marcaram" ao abrir o site, em segundo plano
+    useEffect(() => {
+        fetchPhrase()
+    }, [])
 
     return (
         // Mobile (< md): altura livre, a página rola. md+: trava na altura da tela, sem scroll.

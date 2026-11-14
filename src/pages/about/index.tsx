@@ -3,6 +3,7 @@ import { motion } from "motion/react"
 import { ABOUT } from "@/data/about"
 import { revealFromCenter } from "@/lib/motion"
 import { GetRequest } from "@/service/getRequest"
+import { fetchPhrase, getCachedPhrase, type Phrase } from "@/service/phrase"
 import PeekSticker from "@/components/ui/PeekSticker"
 import ContactModal from "@/components/ui/ContactModal"
 
@@ -22,15 +23,17 @@ const LEVEL_BG = ["bg-line", "bg-accent-purple/25", "bg-accent-purple/50", "bg-a
 const About = () => {
     const { persona, stack, category, stats, socials } = ABOUT
     const [github, setGithub] = useState(ABOUT.github)
-    const [hero, setHero] = useState(ABOUT.hero)
+    // Ano + frase sorteados no back. undefined = ainda carregando (não mostra o texto reserva antes,
+    // pra não "trocar" na frente da pessoa); null = falhou → usa o fallback de about.ts
+    const [phrase, setPhrase] = useState<Phrase | null | undefined>(getCachedPhrase)
+    const hero = { ...ABOUT.hero, ...(phrase ?? {}) }
+    const phraseReady = phrase !== undefined
     const [peek, setPeek] = useState(false)
     const [contactOpen, setContactOpen] = useState(false)
 
-    // Ano + frase sorteados no back (coleção "phrases" do Mongo); se falhar, fica o fallback de about.ts
     useEffect(() => {
-        GetRequest("/api/phrases/random").then((data) => {
-            if (data?.phrase) setHero((h) => ({ ...h, ...data.phrase }))
-        })
+        // Normalmente já resolvida (o MainLayout busca ao abrir o site); senão, espera aqui
+        if (phrase === undefined) fetchPhrase().then(setPhrase)
         // Contribuições reais do GitHub; se falhar, ficam os quadradinhos de exemplo
         GetRequest("/api/github").then((data) => {
             if (data?.levels?.length)
@@ -52,12 +55,19 @@ const About = () => {
                 />
                 <div className="relative">
                     <div className="mb-1 text-xl font-medium text-accent-lime">{hero.kicker}</div>
-                    <div className="-ml-1 text-7xl font-bold leading-[0.85] tracking-tighter xl:text-[112px]" style={display}>
-                        {hero.year}
-                    </div>
-                    <div className="glass mt-5 p-5">
-                        <p className="text-sm font-medium opacity-90 lg:text-base">{hero.text}</p>
-                    </div>
+                    {/* Ano + frase só aparecem quando a resposta chega (fade); até lá o espaço fica reservado */}
+                    <motion.div
+                        initial={false}
+                        animate={{ opacity: phraseReady ? 1 : 0, y: phraseReady ? 0 : 8 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                    >
+                        <div className="-ml-1 text-7xl font-bold leading-[0.85] tracking-tighter xl:text-[112px]" style={display}>
+                            {hero.year}
+                        </div>
+                        <div className="glass mt-5 p-5">
+                            <p className="text-sm font-medium opacity-90 lg:text-base">{hero.text}</p>
+                        </div>
+                    </motion.div>
                 </div>
             </motion.div>
 
