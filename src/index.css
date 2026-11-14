@@ -62,11 +62,25 @@ body,
 
 body {
     margin: 0;
-    overflow: hidden; /* página única, sem scroll */
     font-family: var(--font-body);
     color: var(--color-base-ink);
     background-color: var(--color-base-bg);
     -webkit-font-smoothing: antialiased;
+}
+
+/* Responsividade (mesma estratégia da versão anterior):
+   - abaixo de md (768px) = mobile: página rola normalmente;
+   - md+ = página única SEM scroll, e o layout todo (em rem) escala com a largura da tela
+     reduzindo o font-size raiz: 1920px+ = 16px, notebook ≈ 12–13px, mínimo 12px.
+     Breakpoints do Tailwind usam o rem do navegador, então não são afetados. */
+@media (min-width: 48rem) {
+    html {
+        font-size: clamp(12px, 0.8333vw, 16px);
+    }
+
+    body {
+        overflow: hidden;
+    }
 }
 
 /* Cursor nativo escondido no desktop — a bolinha (CustomCursor) assume */

@@ -17,11 +17,12 @@ const MainLayout = () => {
     const outlet = useOutlet({ setCursorActive } satisfies LayoutContext)
 
     return (
-        <main className="flex h-full flex-col bg-base-bg text-base-ink">
+        // Mobile (< md): altura livre, a página rola. md+: trava na altura da tela, sem scroll.
+        <main className="flex min-h-full flex-col bg-base-bg text-base-ink md:h-full">
             <CustomCursor active={cursorActive} />
             <Header />
-            <section className="mx-auto flex min-h-0 w-full max-w-[1400px] flex-1 items-center px-4 pb-8 md:px-12 md:pb-12">
-                <div className="h-full w-full md:h-[min(680px,74vh)]">
+            <section className="mx-auto flex w-full max-w-[1400px] flex-1 items-center px-4 pb-8 md:min-h-0 md:px-12 md:pb-12">
+                <div className="w-full md:h-[min(680px,74vh)]">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={location.pathname}

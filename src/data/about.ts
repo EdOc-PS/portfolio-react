@@ -9,7 +9,7 @@ type Icon = ComponentType<{ size?: number; className?: string }>
 /** Conteúdo da aba "Sobre". Edite aqui — os componentes só leem estes dados. */
 export const ABOUT = {
     hero: {
-        kicker: "Meu ano em código",
+        kicker: "Momentos que marcaram",
         /** Fallback: usado enquanto /api/phrases/random não responde (ex.: npm run dev) */
         year: new Date().getFullYear(),
         text: "Transformo ideias em sistemas que funcionam — do banco de dados à última animação da interface.",
@@ -54,6 +54,7 @@ export const ABOUT = {
     socials: [
         { name: "GitHub", href: "https://github.com/EdOc-PS", icon: GithubIcon },
         { name: "LinkedIn", href: "https://www.linkedin.com/in/eduardo-octavio/", icon: LinkedinIcon },
-        { name: "Email", href: "mailto:eeuardooctavio@gmail.com", icon: GoogleGmail },
-    ] satisfies { name: string; href: string; icon: Icon }[],
+        // Sem href: abre o modal de contato (envio via /api/send)
+        { name: "Email", icon: GoogleGmail, opensContact: true },
+    ] satisfies { name: string; href?: string; icon: Icon; opensContact?: boolean }[],
 }
