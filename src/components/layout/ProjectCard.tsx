@@ -106,7 +106,7 @@ const ProjectCard = ({ project, index, active, onActiveChange, revealed, onReady
                     className={`rounded-[var(--radius-glass)] border-t p-5 md:p-6
                         transition-[backdrop-filter,background-color,border-color,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
                         ${active
-                            ? `translate-y-0 backdrop-blur-md delay-100 ${darkGlass ? "border-white/10 bg-black/45" : "border-white/20 bg-white/10"}`
+                            ? `translate-y-0 backdrop-blur-md delay-100 ${darkGlass ? "border-white/20 bg-black/25 backdrop-saturate-150" : "border-white/20 bg-white/10"}`
                             : "translate-y-3 border-transparent bg-white/0 backdrop-blur-none"}`}
                 >
                     <div
