@@ -74,22 +74,13 @@ export function contactEmailHtml({ name, email, message }) {
                 ${safeMessage}
               </div>
 
-              <!-- Botão pílula branco, igual ao "Enviar mensagem" do modal -->
-              <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:32px;">
-                <tr>
-                  <td bgcolor="${C.ink}" style="background:${C.ink};border-radius:999px;">
-                    <a href="mailto:${safeEmail}?subject=${encodeURIComponent("Re: contato pelo portfólio")}" style="display:inline-block;padding:15px 32px;font-family:${FONT_DISPLAY};font-size:15px;font-weight:700;color:#000000;text-decoration:none;">Responder</a>
-                  </td>
-                </tr>
-              </table>
             </td>
           </tr>
 
           <!-- Rodapé -->
           <tr>
             <td align="center" style="padding:24px 8px 0;font-family:${FONT_BODY};font-size:12px;line-height:1.6;color:${C.muted};">
-              Enviado pelo formulário de contato do portfólio<br />
-              <span style="color:${C.lime};">●</span>&nbsp; Responder este e-mail também responde para ${safeName}
+              Enviado pelo formulário de contato do portfólio
             </td>
           </tr>
 
