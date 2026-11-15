@@ -4,6 +4,7 @@ import type { Project } from "@/types/project"
 import { revealFromCenter } from "@/lib/motion"
 import { GithubIcon } from "@dev.icons/react/mono"
 import GlobeIcon from "@/components/ui/GlobeIcon"
+import IconLink from "@/components/ui/IconLink"
 
 const THUMB_TIME = 6
 
@@ -124,16 +125,14 @@ const ProjectCard = ({ project, index, active, onActiveChange, revealed, onReady
                         {(github || live) && (
                             <div className={`flex shrink-0 gap-2 ${darkText ? "text-black" : "text-white"}`}>
                                 {github && (
-                                    <a href={github} target="_blank" rel="noopener noreferrer" title="Repositório" aria-label="Repositório no GitHub"
-                                        className={`flex h-9 w-9 items-center justify-center rounded-full border border-current/25 transition-colors ${darkText ? "hover:bg-black/10" : "hover:bg-white/15"}`}>
+                                    <IconLink href={github} label="Repositório" dark={darkText}>
                                         <GithubIcon size={18} />
-                                    </a>
+                                    </IconLink>
                                 )}
                                 {live && (
-                                    <a href={live} target="_blank" rel="noopener noreferrer" title="Ver online" aria-label="Abrir o site do projeto"
-                                        className={`flex h-9 w-9 items-center justify-center rounded-full border border-current/25 transition-colors ${darkText ? "hover:bg-black/10" : "hover:bg-white/15"}`}>
+                                    <IconLink href={live} label="Ver online" dark={darkText}>
                                         <GlobeIcon />
-                                    </a>
+                                    </IconLink>
                                 )}
                             </div>
                         )}

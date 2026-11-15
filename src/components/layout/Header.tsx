@@ -13,8 +13,7 @@ const Header = () => {
         <header className="flex shrink-0 flex-col items-center gap-3 pb-6 pt-6">
             <NavLink
                 to="/"
-                className="text-3xl font-extrabold tracking-tight text-base-ink"
-                style={{ fontFamily: "var(--font-display)" }}
+                className="text-3xl font-extrabold tracking-tight text-base-ink font-display"
             >
                 EDOC
             </NavLink>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 import { AnimatePresence, motion } from "motion/react"
+import FormField from "@/components/ui/FormField"
+import CloseIcon from "@/components/ui/CloseIcon"
 
 type SubmitStatus = "idle" | "sending" | "success" | "error" | "invalid-email"
 
@@ -12,9 +14,6 @@ interface ContactModalProps {
     open: boolean
     onClose: () => void
 }
-
-const fieldClass =
-    "w-full rounded-2xl border border-line bg-gradient-to-br from-surface to-surface-deep px-5 py-4 text-base text-white placeholder:text-white/40 transition-colors hover:border-line-hover focus:border-line-hover focus:outline-none"
 
 const ContactModal = ({ open, onClose }: ContactModalProps) => {
     const [form, setForm] = useState(EMPTY_FORM)
@@ -101,40 +100,27 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                                 aria-label="Fechar"
                                 className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                             >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-                                    <path d="M6 6l12 12M18 6L6 18" />
-                                </svg>
+                                <CloseIcon />
                             </button>
                         </div>
 
-                        <label className="flex flex-col gap-2 text-xs font-semibold uppercase tracking-wider text-white/60">
-                            Nome
-                            <input required maxLength={LIMITS.name} type="text" value={form.name} onChange={handleChange("name")} placeholder="Seu nome" className={fieldClass} />
-                        </label>
-
-                        <label className="flex flex-col gap-2 text-xs font-semibold uppercase tracking-wider text-white/60">
-                            E-mail
-                            <input required maxLength={LIMITS.email} type="email" value={form.email} onChange={handleChange("email")} placeholder="voce@email.com" className={fieldClass} />
-                        </label>
-
-                        <label className="flex flex-col gap-2 text-xs font-semibold uppercase tracking-wider text-white/60">
-                            Mensagem
-                            <textarea
-                                required
-                                maxLength={LIMITS.message}
-                                rows={4}
-                                value={form.message}
-                                onChange={handleChange("message")}
-                                placeholder="O que você procura..."
-                                className={`${fieldClass} resize-none`}
-                            />
-                        </label>
+                        <FormField label="Nome" required maxLength={LIMITS.name} type="text" value={form.name} onChange={handleChange("name")} placeholder="Seu nome" />
+                        <FormField label="E-mail" required maxLength={LIMITS.email} type="email" value={form.email} onChange={handleChange("email")} placeholder="voce@email.com" />
+                        <FormField
+                            label="Mensagem"
+                            multiline
+                            required
+                            maxLength={LIMITS.message}
+                            rows={4}
+                            value={form.message}
+                            onChange={handleChange("message")}
+                            placeholder="O que você procura..."
+                        />
 
                         <button
                             type="submit"
                             disabled={status === "sending"}
-                            className="mt-1 rounded-full bg-white px-8 py-4 text-base font-bold text-black transition-transform duration-300 hover:scale-[1.02] disabled:opacity-60"
-                            style={{ fontFamily: "var(--font-display)" }}
+                            className="mt-1 rounded-full bg-white px-8 py-4 text-base font-bold text-black transition-transform duration-300 hover:scale-[1.02] disabled:opacity-60 font-display"
                         >
                             {status === "sending" ? "Enviando..." : "Enviar mensagem"}
                         </button>

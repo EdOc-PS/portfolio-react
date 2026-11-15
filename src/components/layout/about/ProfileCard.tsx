@@ -3,6 +3,7 @@ import { motion } from "motion/react"
 import { ABOUT } from "@/data/about"
 import { revealFromCenter } from "@/lib/motion"
 import PeekSticker from "@/components/ui/PeekSticker"
+import CodeIcon from "@/components/ui/CodeIcon"
 
 const ProfileCard = ({ index }: { index: number }) => {
     const { persona } = ABOUT
@@ -20,13 +21,10 @@ const ProfileCard = ({ index }: { index: number }) => {
 
             <div className="flex flex-1 flex-col items-center justify-center text-center">
                 <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-black md:hidden lg:flex 2xl:mb-4 2xl:h-20 2xl:w-20">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7 2xl:h-10 2xl:w-10">
-                        <polyline points="16 18 22 12 16 6" />
-                        <polyline points="8 6 2 12 8 18" />
-                    </svg>
+                    <CodeIcon className="h-7 w-7 text-white 2xl:h-10 2xl:w-10" />
                 </div>
                 <div className="mb-1 text-xs font-semibold uppercase tracking-wide opacity-60">{persona.prefix}</div>
-                <div className="text-2xl font-bold leading-tight md:text-base lg:text-2xl 2xl:text-[28px]" style={{ fontFamily: "var(--font-display)" }}>
+                <div className="text-2xl font-bold leading-tight md:text-base lg:text-2xl 2xl:text-[28px] font-display">
                     {persona.title[0]}
                     <br />
                     {persona.title[1]}

@@ -49,8 +49,7 @@ const MomentsCard = ({ index }: { index: number }) => {
                         transition={{ duration: 0.4, ease: "easeOut" }}
                     >
                         <div
-                            className="-ml-1 text-7xl font-bold leading-[0.85] tracking-tighter xl:text-[112px]"
-                            style={{ fontFamily: "var(--font-display)" }}
+                            className="-ml-1 text-7xl font-bold leading-[0.85] tracking-tighter xl:text-[112px] font-display"
                         >
                             {hero.year}
                         </div>

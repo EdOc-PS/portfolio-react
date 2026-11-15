@@ -11,8 +11,7 @@ const CodingTimeCard = ({ index }: { index: number }) => {
             <Label>{stats.label}</Label>
             <div>
                 <div
-                    className="mb-3 whitespace-nowrap bg-gradient-to-br from-accent-purple to-accent-pink bg-clip-text text-4xl font-bold leading-none text-transparent 2xl:text-5xl"
-                    style={{ fontFamily: "var(--font-display)" }}
+                    className="mb-3 whitespace-nowrap bg-gradient-to-br from-accent-purple to-accent-pink bg-clip-text text-4xl font-bold leading-none text-transparent 2xl:text-5xl font-display"
                 >
                     {stats.value}
                 </div>

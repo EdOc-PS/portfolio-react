@@ -14,7 +14,7 @@ const SpecialtyCard = ({ index }: { index: number }) => {
 
             <div className="relative">
                 <div className="mb-1 text-xs font-bold uppercase">{category.label}</div>
-                <div className="text-2xl font-bold lg:text-3xl" style={{ fontFamily: "var(--font-display)" }}>
+                <div className="text-2xl font-bold lg:text-3xl font-display">
                     {category.title}
                 </div>
             </div>
