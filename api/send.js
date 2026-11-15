@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   if (
     typeof name !== "string" || typeof email !== "string" || typeof message !== "string" ||
     !name.trim() || !message.trim() ||
-    name.length > 80 || email.length > 254 || message.length > 2000
+    name.length > 150 || email.length > 254 || message.length > 250
   ) {
     return res.status(400).json({ success: false, message: "Campos inválidos ou acima do limite" });
   }

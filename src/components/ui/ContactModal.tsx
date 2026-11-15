@@ -4,11 +4,22 @@ import { AnimatePresence, motion } from "motion/react"
 import FormField from "@/components/ui/FormField"
 import CloseIcon from "@/components/ui/CloseIcon"
 
-type SubmitStatus = "idle" | "sending" | "success" | "error" | "invalid-email"
+type SubmitStatus = "idle" | "sending" | "success" | "error"
+type Field = "name" | "email" | "message"
+type Errors = Partial<Record<Field, string>>
 
-const LIMITS = { name: 80, email: 254, message: 2000 }
+// Mesmos limites validados em api/send.js
+const LIMITS = { name: 150, email: 254, message: 250 }
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const EMPTY_FORM = { name: "", email: "", message: "" }
+
+const validate = (form: typeof EMPTY_FORM): Errors => {
+    const errors: Errors = {}
+    if (!form.name.trim()) errors.name = "Informe seu nome."
+    if (!EMAIL_REGEX.test(form.email.trim())) errors.email = "Informe um e-mail válido (ex.: voce@email.com)."
+    if (!form.message.trim()) errors.message = "Escreva sua mensagem."
+    return errors
+}
 
 interface ContactModalProps {
     open: boolean
@@ -18,6 +29,7 @@ interface ContactModalProps {
 const ContactModal = ({ open, onClose }: ContactModalProps) => {
     const [form, setForm] = useState(EMPTY_FORM)
     const [status, setStatus] = useState<SubmitStatus>("idle")
+    const [errors, setErrors] = useState<Errors>({})
 
     const lockWhileOpen = () => {
         if (!open) return
@@ -33,20 +45,23 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
     useEffect(lockWhileOpen, [open, onClose])
 
     const resetStatus = () => {
-        if (open) setStatus("idle")
+        if (!open) return
+        setStatus("idle")
+        setErrors({})
     }
     useEffect(resetStatus, [open])
 
-    const handleChange = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    const handleChange = (field: Field) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setForm((prev) => ({ ...prev, [field]: e.target.value }))
+        setErrors((prev) => ({ ...prev, [field]: undefined }))
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
-        if (!EMAIL_REGEX.test(form.email.trim())) {
-            setStatus("invalid-email")
-            return
-        }
+        const found = validate(form)
+        setErrors(found)
+        if (Object.keys(found).length) return
 
         setStatus("sending")
         try {
@@ -104,11 +119,31 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                             </button>
                         </div>
 
-                        <FormField label="Nome" required maxLength={LIMITS.name} type="text" value={form.name} onChange={handleChange("name")} placeholder="Seu nome" />
-                        <FormField label="E-mail" required maxLength={LIMITS.email} type="email" value={form.email} onChange={handleChange("email")} placeholder="voce@email.com" />
+                        <FormField
+                            label="Nome"
+                            required
+                            maxLength={LIMITS.name}
+                            type="text"
+                            value={form.name}
+                            onChange={handleChange("name")}
+                            placeholder="Seu nome"
+                            error={errors.name}
+                        />
+                        <FormField
+                            label="E-mail"
+                            required
+                            maxLength={LIMITS.email}
+                            type="email"
+                            value={form.email}
+                            onChange={handleChange("email")}
+                            placeholder="voce@email.com"
+                            error={errors.email}
+                        />
                         <FormField
                             label="Mensagem"
                             multiline
+                            showCount
+                            error={errors.message}
                             required
                             maxLength={LIMITS.message}
                             rows={4}
@@ -125,9 +160,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                             {status === "sending" ? "Enviando..." : "Enviar mensagem"}
                         </button>
 
-                        {status === "success" && <p className="text-center text-sm font-semibold text-accent-lime">Mensagem enviada! Retorno em breve.</p>}
-                        {status === "invalid-email" && <p className="text-center text-sm font-semibold text-accent-pink">Informe um e-mail válido (ex.: voce@email.com).</p>}
-                        {status === "error" && <p className="text-center text-sm font-semibold text-accent-pink">Não deu pra enviar agora — tenta de novo em instantes.</p>}
+                        {status === "success" && <p className="text-center text-sm font-semibold text-accent-lime">Mensagem enviada! Retorno em breve.</p>}                        {status === "error" && <p className="text-center text-sm font-semibold text-accent-pink">Não deu pra enviar agora — tenta de novo em instantes.</p>}
                     </motion.form>
                 </motion.div>
             )}
