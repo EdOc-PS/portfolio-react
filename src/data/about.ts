@@ -1,27 +1,22 @@
 import type { ComponentType } from "react"
 import { _React, TypescriptIcon, Javascript, MongodbIcon, NodejsIcon, GoogleGmail, ClaudeIcon, Java, Nestjs } from "@dev.icons/react"
-// Logos originalmente pretos (somem no fundo escuro) → versão mono, herda o branco
 import { Express, NextjsIcon, GithubIcon } from "@dev.icons/react/mono"
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon"
 
 type Icon = ComponentType<{ size?: number; className?: string }>
 
-/** Ano em que comecei a programar — o card "Programando há" calcula os anos sozinho */
 const CODING_SINCE = 2020
 const codingYears = new Date().getFullYear() - CODING_SINCE
 
-/** Conteúdo da aba "Sobre". Edite aqui — os componentes só leem estes dados. */
 export const ABOUT = {
     hero: {
-        kicker: "Momentos que marcaram",
-        /** Fallback: usado enquanto /api/phrases/random não responde (ex.: npm run dev) */
+        kicker: "Marcos da jornada",
         year: new Date().getFullYear(),
         text: "Transformo ideias em sistemas que funcionam — do banco de dados à última animação da interface.",
     },
     persona: {
         prefix: "Eu sou",
         title: ["Desenvolvedor", "de Sistemas"],
-        /** Easter egg do hover no título — coloque a imagem em public/stickers/ */
         sticker: "/stickers/dev.png",
         text: "Consistência é minha moeda. Gosto de código limpo, componentes reutilizáveis e detalhes bem feitos.",
     },
@@ -29,7 +24,6 @@ export const ABOUT = {
         label: "GitHub",
         title: "Contribuições",
         subtitle: "Últimas semanas de commits.",
-        /** 0 a 4 — exemplo; substituído pelos dados de /api/github quando a rota responde */
         levels: [
             0, 1, 0, 2, 1, 0, 0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 3, 2, 1, 0, 0, 0, 1, 1, 2, 1, 1, 0, 1, 2, 2, 3, 2, 1, 2,
         ],
@@ -60,7 +54,6 @@ export const ABOUT = {
     socials: [
         { name: "GitHub", href: "https://github.com/EdOc-PS", icon: GithubIcon },
         { name: "LinkedIn", href: "https://www.linkedin.com/in/eduardo-octavio/", icon: LinkedinIcon },
-        // Sem href: abre o modal de contato (envio via /api/send)
         { name: "Email", icon: GoogleGmail, opensContact: true },
     ] satisfies { name: string; href?: string; icon: Icon; opensContact?: boolean }[],
 }

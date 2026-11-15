@@ -2,11 +2,8 @@ import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 import { AnimatePresence, motion } from "motion/react"
 
-/** Mesmo formulário da v2.0 (página de contato), agora num modal com o vidro do sistema. */
-
 type SubmitStatus = "idle" | "sending" | "success" | "error" | "invalid-email"
 
-// Limites iguais aos validados em api/send.js
 const LIMITS = { name: 80, email: 254, message: 2000 }
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const EMPTY_FORM = { name: "", email: "", message: "" }
@@ -17,15 +14,13 @@ interface ContactModalProps {
 }
 
 const fieldClass =
-    // Inputs com a mesma superfície dos cards (gradiente #1a1a1a → #121212, borda #262626)
     "w-full rounded-2xl border border-line bg-gradient-to-br from-surface to-surface-deep px-5 py-4 text-base text-white placeholder:text-white/40 transition-colors hover:border-line-hover focus:border-line-hover focus:outline-none"
 
 const ContactModal = ({ open, onClose }: ContactModalProps) => {
     const [form, setForm] = useState(EMPTY_FORM)
     const [status, setStatus] = useState<SubmitStatus>("idle")
 
-    // Esc fecha; trava o scroll do fundo (relevante no mobile) enquanto aberto
-    useEffect(() => {
+    const lockWhileOpen = () => {
         if (!open) return
         const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose()
         const prevOverflow = document.body.style.overflow
@@ -35,12 +30,13 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
             window.removeEventListener("keydown", onKey)
             document.body.style.overflow = prevOverflow
         }
-    }, [open, onClose])
+    }
+    useEffect(lockWhileOpen, [open, onClose])
 
-    // Reabrir depois de um envio começa limpo
-    useEffect(() => {
+    const resetStatus = () => {
         if (open) setStatus("idle")
-    }, [open])
+    }
+    useEffect(resetStatus, [open])
 
     const handleChange = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
         setForm((prev) => ({ ...prev, [field]: e.target.value }))
@@ -72,21 +68,20 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
         <AnimatePresence>
             {open && (
                 <motion.div
-                    // Fundo atrás do modal: escurece e desfoca a página (o "glass" fica aqui)
                     className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4 backdrop-blur-md"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.25 }}
-                    onMouseDown={(e) => e.target === e.currentTarget && onClose()} // clique fora fecha
+                    onMouseDown={(e) => e.target === e.currentTarget && onClose()}
                     role="dialog"
                     aria-modal="true"
                     aria-labelledby="contact-title"
                 >
+                    {/* Formulário */}
                     <motion.form
                         onSubmit={handleSubmit}
                         noValidate
-                        // Painel preto sólido, com o raio e a borda padrão dos cards (32px, #262626)
                         className="relative flex w-full max-w-lg flex-col gap-5 rounded-[var(--radius-card)] border border-line bg-black p-6 text-white shadow-2xl sm:p-8"
                         initial={{ opacity: 0, y: 24, scale: 0.97 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}

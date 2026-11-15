@@ -1,34 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap');
 @import "tailwindcss";
 
+/* Tokens */
 @theme {
-    /* Base — tema escuro, só preto e branco por enquanto */
     --color-base-bg: #050505;
     --color-base-ink: #FFFFFF;
 
-    /* Superfícies e bordas (padrão vindo do template "modern") */
     --color-surface: #1a1a1a;
     --color-surface-deep: #121212;
     --color-line: #262626;
     --color-line-hover: #404040;
     --color-muted: #a1a1aa;
 
-    /* Acentos (aba Sobre, vindos da referência) */
     --color-accent-purple: #7928ca;
     --color-accent-pink: #ff0080;
     --color-accent-lime: #ccf381;
 
-    /* Raios padrão */
     --radius-card: 32px;
     --radius-glass: 1rem;
 
-    /* Fontes */
     --font-body: 'Plus Jakarta Sans', sans-serif;
     --font-display: 'Poppins', sans-serif;
 }
 
+/* Componentes */
 @layer components {
-    /* Card padrão do sistema: raio 32px, borda fina, leve elevação no hover */
     .card {
         border-radius: var(--radius-card);
         border: 1px solid var(--color-line);
@@ -41,7 +37,6 @@
         transform: translateY(-2px);
     }
 
-    /* Glassmorfismo padrão do sistema (box sob o "2025" do template) */
     .glass {
         border-radius: var(--radius-glass);
         background: rgb(255 255 255 / 0.1);
@@ -50,6 +45,7 @@
     }
 }
 
+/* Base */
 * {
     box-sizing: border-box;
 }
@@ -66,23 +62,17 @@ body {
     color: var(--color-base-ink);
     background-color: var(--color-base-bg);
     -webkit-font-smoothing: antialiased;
-    /* Nada do site é selecionável (sem o "azul" de seleção ao clicar/arrastar) */
     user-select: none;
     -webkit-user-select: none;
 }
 
-/* ...exceto onde a pessoa digita (formulário de contato) */
 input,
 textarea {
     user-select: text;
     -webkit-user-select: text;
 }
 
-/* Responsividade (mesma estratégia da versão anterior):
-   - abaixo de md (768px) = mobile: página rola normalmente;
-   - md+ = página única SEM scroll, e o layout todo (em rem) escala com a largura da tela
-     reduzindo o font-size raiz: 1920px+ = 16px, notebook ≈ 12–13px, mínimo 12px.
-     Breakpoints do Tailwind usam o rem do navegador, então não são afetados. */
+/* Responsividade: abaixo de md rola; md+ página única escalando pelo rem */
 @media (min-width: 48rem) {
     html {
         font-size: clamp(12px, 0.8333vw, 16px);
@@ -93,7 +83,7 @@ textarea {
     }
 }
 
-/* Cursor nativo escondido no desktop — a bolinha (CustomCursor) assume */
+/* Cursor customizado no desktop */
 @media (pointer: fine) and (min-width: 48rem) {
     *, *::before, *::after {
         cursor: none !important;

@@ -1,7 +1,3 @@
-/**
- * GET /api/github → últimas 5 semanas de contribuições do GitHub (grade 7×5 do card "Contribuições").
- * Precisa da variável de ambiente GITHUB_TOKEN (fine-grained token, sem permissões extras).
- */
 const GITHUB_USER = "EdOc-PS";
 const DAYS = 35;
 
@@ -57,7 +53,6 @@ export default async function handler(req, res) {
     const levels = days.map((d) => LEVELS[d.contributionLevel] ?? 0);
     const total = days.reduce((sum, d) => sum + d.contributionCount, 0);
 
-    // Cache na CDN da Vercel por 1h (e serve o antigo enquanto atualiza) → poucas chamadas ao GitHub
     res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate=86400");
     return res.status(200).json({ success: true, levels, total });
   } catch (err) {

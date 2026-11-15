@@ -6,22 +6,20 @@ const escapeHtml = (value) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 
-// Mesmos tokens do site (src/index.css) — tema escuro da versão nova.
 const C = {
-  bg: "#050505", // base-bg
-  ink: "#FFFFFF", // base-ink
-  muted: "#A1A1AA", // muted
-  surface: "#1A1A1A", // surface (início do gradiente dos cards)
-  surfaceDeep: "#121212", // surface-deep (fim do gradiente)
-  line: "#262626", // borda padrão
-  purple: "#7928CA", // accent-purple
-  pink: "#FF0080", // accent-pink
-  lime: "#CCF381", // accent-lime
+  bg: "#050505",
+  ink: "#FFFFFF",
+  muted: "#A1A1AA",
+  surface: "#1A1A1A",
+  surfaceDeep: "#121212",
+  line: "#262626",
+  purple: "#7928CA",
+  pink: "#FF0080",
+  lime: "#CCF381",
 };
 const FONT_DISPLAY = "'Poppins', Arial, Helvetica, sans-serif";
 const FONT_BODY = "'Plus Jakarta Sans', Arial, Helvetica, sans-serif";
 
-// Gradiente dos cards; clientes que não suportam (Outlook) ficam com o bgcolor sólido.
 const cardBg = `background-color:${C.surface};background-image:linear-gradient(135deg,${C.surface},${C.surfaceDeep});`;
 
 const label = (text) =>

@@ -6,7 +6,6 @@ const TABS = [
     { to: "/sobre", label: "Sobre" },
 ]
 
-/** EDOC centralizado e, logo abaixo, as abas Projetos / Sobre. */
 const Header = () => {
     const { pathname } = useLocation()
 

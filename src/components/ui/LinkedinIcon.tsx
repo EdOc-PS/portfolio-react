@@ -1,4 +1,3 @@
-/** O devicons não tem LinkedIn — SVG oficial do logo, mesma API ({ size }) dos ícones do devicons. */
 export const LinkedinIcon = ({ size = 24, className }: { size?: number; className?: string }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" className={className} aria-hidden="true">
         <rect width="24" height="24" rx="4" fill="#0A66C2" />

@@ -2,20 +2,14 @@ import { useState } from "react"
 import { AnimatePresence, motion } from "motion/react"
 
 interface PeekStickerProps {
-    /** Caminho da imagem em /public, ex.: "/stickers/dev.png" */
     src: string
     show: boolean
     size?: number
 }
 
-/**
- * Easter egg: um sticker que "espia" descendo pela borda de cima do card.
- * Fica absoluto no canto superior direito do card pai (que precisa ser `relative`);
- * o recorte arredondado do card esconde a parte que ainda está "fora".
- */
 const PeekSticker = ({ src, show, size = 96 }: PeekStickerProps) => {
     const [broken, setBroken] = useState(false)
-    if (broken) return null // imagem não existe → não mostra nada
+    if (broken) return null
 
     return (
         <AnimatePresence>

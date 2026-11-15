@@ -3,17 +3,12 @@ import { AnimatePresence, motion } from "motion/react"
 
 const SPRING = { type: "spring", stiffness: 500, damping: 28 } as const
 
-/**
- * Bolinha branca que substitui o cursor no site todo.
- * Pequena por padrão, cresce sobre um card em foco, encolhe ao pressionar
- * e solta um anel pulsando a cada clique.
- */
 const CustomCursor = ({ active }: { active: boolean }) => {
     const ref = useRef<HTMLDivElement>(null)
     const [pressed, setPressed] = useState(false)
     const [pulses, setPulses] = useState<number[]>([])
 
-    useEffect(() => {
+    const trackPointer = () => {
         let raf = 0
         const move = (e: MouseEvent) => {
             cancelAnimationFrame(raf)
@@ -36,7 +31,8 @@ const CustomCursor = ({ active }: { active: boolean }) => {
             window.removeEventListener("mouseup", up)
             cancelAnimationFrame(raf)
         }
-    }, [])
+    }
+    useEffect(trackPointer, [])
 
     const scale = (active ? 1 : 0.5) * (pressed ? 0.7 : 1)
 
@@ -48,8 +44,6 @@ const CustomCursor = ({ active }: { active: boolean }) => {
         >
             <AnimatePresence>
                 {pulses.map((id) => (
-                    /* O anel já nasce no tamanho final (72px) e começa encolhido: escalar pra BAIXO
-                       mantém a nitidez; escalar uma bolinha de 24px pra cima deixava o pulso pixelado. */
                     <motion.span
                         key={id}
                         className="absolute left-1/2 top-1/2 -ml-9 -mt-9 h-18 w-18 rounded-full border-[1.5px] border-white"

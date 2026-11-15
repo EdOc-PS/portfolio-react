@@ -2,25 +2,17 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "re
 import { animate, motion, useMotionValue, type PanInfo } from "motion/react"
 
 interface MobileCarouselProps {
-    /** Um item por card (cada um com a largura do card: CARD_RATIO da tela) */
     items: ReactNode[]
     index: number
     onIndexChange: (index: number) => void
 }
 
-/** Largura do card em relação ao carrossel e espaço entre eles */
 const CARD_RATIO = 0.78
 const GAP = 12
-/** Quanto arrastar (px) ou quão rápido (px/s) pra trocar de card */
 const SWIPE_DISTANCE = 50
 const SWIPE_VELOCITY = 400
 const SPRING = { type: "spring", stiffness: 320, damping: 34 } as const
 
-/**
- * Carrossel do mobile feito com o motion/react gratuito (o <Carousel> do motion.dev é Motion+, pago).
- * Arrasta com o dedo (drag="x"), solta e o trilho encaixa com mola no card mais próximo;
- * o card do centro é o "ativo". Bolinhas embaixo mostram/levam pra posição.
- */
 const MobileCarousel = ({ items, index, onIndexChange }: MobileCarouselProps) => {
     const viewportRef = useRef<HTMLDivElement>(null)
     const [width, setWidth] = useState(0)
@@ -28,32 +20,32 @@ const MobileCarousel = ({ items, index, onIndexChange }: MobileCarouselProps) =>
 
     const cardWidth = width * CARD_RATIO
     const step = cardWidth + GAP
-    const offset = (width - cardWidth) / 2 // centraliza o card ativo
+    const offset = (width - cardWidth) / 2
     const xFor = (i: number) => offset - i * step
 
-    // Mede a largura disponível (e acompanha rotação de tela)
-    useLayoutEffect(() => {
+    const observeWidth = () => {
         const el = viewportRef.current
         if (!el) return
         const ro = new ResizeObserver(([entry]) => setWidth(entry.contentRect.width))
         ro.observe(el)
         return () => ro.disconnect()
-    }, [])
+    }
+    useLayoutEffect(observeWidth, [])
 
-    // Sempre que o índice ou a largura mudam, o trilho anima até o card certo
-    useEffect(() => {
+    const snapToIndex = () => {
         if (!width) return
         const controls = animate(x, xFor(index), SPRING)
         return () => controls.stop()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [index, width])
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(snapToIndex, [index, width])
 
     const handleDragEnd = (_: unknown, info: PanInfo) => {
         const swipedLeft = info.offset.x < -SWIPE_DISTANCE || info.velocity.x < -SWIPE_VELOCITY
         const swipedRight = info.offset.x > SWIPE_DISTANCE || info.velocity.x > SWIPE_VELOCITY
         const next = swipedLeft ? index + 1 : swipedRight ? index - 1 : index
         const clamped = Math.max(0, Math.min(items.length - 1, next))
-        if (clamped === index) animate(x, xFor(index), SPRING) // volta pro lugar
+        if (clamped === index) animate(x, xFor(index), SPRING)
         else onIndexChange(clamped)
     }
 
@@ -77,7 +69,6 @@ const MobileCarousel = ({ items, index, onIndexChange }: MobileCarouselProps) =>
                 </motion.div>
             </div>
 
-            {/* Paginação */}
             <div className="flex justify-center gap-2">
                 {items.map((_, i) => (
                     <button

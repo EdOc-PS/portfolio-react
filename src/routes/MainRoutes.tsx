@@ -8,7 +8,6 @@ const MainRoutes = () => (
         <Route element={<MainLayout />}>
             <Route index element={<Projects />} />
             <Route path="sobre" element={<About />} />
-            {/* Qualquer rota desconhecida volta pra Projetos (a principal) */}
             <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
     </Routes>
