@@ -66,6 +66,16 @@ body {
     color: var(--color-base-ink);
     background-color: var(--color-base-bg);
     -webkit-font-smoothing: antialiased;
+    /* Nada do site é selecionável (sem o "azul" de seleção ao clicar/arrastar) */
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ...exceto onde a pessoa digita (formulário de contato) */
+input,
+textarea {
+    user-select: text;
+    -webkit-user-select: text;
 }
 
 /* Responsividade (mesma estratégia da versão anterior):

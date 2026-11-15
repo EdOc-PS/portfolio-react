@@ -11,13 +11,15 @@ const STEP = 0.12 // atraso entre "anéis" da onda (s)
 const DURATION = 0.9 // um pulso completo (s)
 
 const WaveLoader = () => (
-    <div className="flex items-center gap-1.5" role="status" aria-label="Carregando projetos">
+    <div className="flex h-10 items-center gap-1.5 md:h-12" role="status" aria-label="Carregando projetos">
         {Array.from({ length: BARS }, (_, i) => (
             <motion.span
                 key={i}
-                className="block h-10 w-2.5 origin-center rounded-[3px] bg-white/85 md:h-12 md:w-3"
-                initial={{ scaleY: 0.3 }}
-                animate={{ scaleY: [0.3, 1, 0.3] }}
+                // Anima a ALTURA (não scaleY): com scale, o arredondamento dos cantos era achatado
+                // junto e a barra ficava "reta"/deformada quando estava baixa
+                className="block w-[0.5625rem] rounded-[3px] bg-white/85 md:w-[0.675rem]"
+                initial={{ height: "30%" }}
+                animate={{ height: ["30%", "100%", "30%"] }}
                 transition={{
                     duration: DURATION,
                     ease: "easeInOut",
