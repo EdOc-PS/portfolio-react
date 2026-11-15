@@ -33,8 +33,7 @@ const ProjectCard = ({ project, index, active, onActiveChange, revealed, onReady
     }
     const image = project.image?.trim() || undefined
     const video = project.video?.trim() || undefined
-    const darkText = !image && !video
-    const darkGlass = project.dark === true
+    const darkText = project.dark === true || (!image && !video)
     const github = toUrl(project.github)
     const live = toUrl(project.live)
 
@@ -63,7 +62,7 @@ const ProjectCard = ({ project, index, active, onActiveChange, revealed, onReady
         <motion.div
             {...revealFromCenter(index, revealed)}
             data-id={project._id}
-            className={`relative h-full min-h-0 w-full min-w-0 overflow-hidden md:w-auto md:basis-0 rounded-[var(--radius-card)] border border-line ${darkText ? "bg-white" : "bg-black"}
+            className={`relative h-full min-h-0 w-full min-w-0 overflow-hidden md:w-auto md:basis-0 rounded-[var(--radius-card)] border border-line ${!image && !video ? "bg-white" : "bg-black"}
                 transition-[flex-grow,box-shadow,opacity,border-color] duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)]
                 ${active ? "shadow-2xl shadow-white/10 md:grow-[2.5]" : "opacity-90 md:grow"}`}
             onMouseEnter={() => onActiveChange(true)}
@@ -106,7 +105,7 @@ const ProjectCard = ({ project, index, active, onActiveChange, revealed, onReady
                     className={`rounded-[var(--radius-glass)] border-t p-5 md:p-6
                         transition-[backdrop-filter,background-color,border-color,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
                         ${active
-                            ? `translate-y-0 backdrop-blur-md delay-100 ${darkGlass ? "border-white/20 bg-black/25 backdrop-saturate-150" : "border-white/20 bg-white/10"}`
+                            ? `translate-y-0 backdrop-blur-md delay-100 border-white/20 bg-white/10`
                             : "translate-y-3 border-transparent bg-white/0 backdrop-blur-none"}`}
                 >
                     <div

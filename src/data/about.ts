@@ -10,7 +10,7 @@ const codingYears = new Date().getFullYear() - CODING_SINCE
 
 export const ABOUT = {
     hero: {
-        kicker: "Marcos da jornada",
+        kicker: "Momentos marcantes",
         year: new Date().getFullYear(),
         text: "Transformo ideias em sistemas que funcionam — do banco de dados à última animação da interface.",
     },
