@@ -4,6 +4,9 @@ import type { Project } from "@/types/project"
 import { revealFromCenter } from "@/lib/motion"
 import { GithubIcon } from "@dev.icons/react/mono"
 
+/** Segundo do vídeo usado como thumbnail do card quando o projeto não tem imagem */
+const THUMB_TIME = 6
+
 /** Links do Mongo às vezes vêm sem protocolo (ex.: "app.vercel.app") */
 const toUrl = (url?: string) => {
     const u = url?.trim()
@@ -26,7 +29,7 @@ interface ProjectCardProps {
     onActiveChange: (active: boolean) => void
     /** false = fica fechado (loader na tela); true = abre com a animação */
     revealed: boolean
-    /** Avisa a galeria que a capa (imagem ou 1º quadro do vídeo) já carregou — ou falhou */
+    /** Avisa a galeria que a capa (imagem ou quadro dos 6s do vídeo) já carregou — ou falhou */
     onReady: () => void
 }
 
@@ -51,7 +54,7 @@ const ProjectCard = ({ project, index, active, onActiveChange, revealed, onReady
     const live = toUrl(project.live)
 
     // Card sem mídia já nasce pronto; imagem que veio do cache pode não disparar onLoad
-    // (idem vídeo: se o 1º quadro já estava disponível ao montar, o loadeddata pode ter passado)
+    // (idem vídeo: se o quadro da capa já estava disponível ao montar, o loadeddata pode ter passado)
     useEffect(() => {
         if (!image && !video) markReady()
         else if (image && imgRef.current?.complete) markReady()
@@ -67,6 +70,8 @@ const ProjectCard = ({ project, index, active, onActiveChange, revealed, onReady
             video.play().catch(() => {})
         } else {
             video.pause()
+            // Sem imagem, volta pro quadro da capa ao sair do hover
+            if (!image) video.currentTime = THUMB_TIME
         }
     }, [active])
 
@@ -97,11 +102,12 @@ const ProjectCard = ({ project, index, active, onActiveChange, revealed, onReady
             {video && (
                 <video
                     ref={videoRef}
-                    // "#t=0.1" faz o navegador carregar o 1º quadro → serve de capa quando não há imagem
-                    src={image ? video : `${video}#t=0.1`}
+                    // "#t=6" faz o navegador carregar o quadro dos 6s → serve de capa quando não há imagem
+                    // (vídeo mais curto que isso mostra o último quadro)
+                    src={image ? video : `${video}#t=${THUMB_TIME}`}
                     className={`absolute inset-0 h-full w-full object-cover transition-all duration-700
                         ${active ? "opacity-100" : image ? "opacity-0" : "opacity-100 grayscale brightness-75"}`}
-                    // Sem imagem, o vídeo é a capa: o card só fica pronto quando o 1º quadro chega
+                    // Sem imagem, o vídeo é a capa: o card só fica pronto quando o quadro da capa chega
                     onLoadedData={image ? undefined : markReady}
                     onCanPlay={image ? undefined : markReady}
                     onError={image ? undefined : markReady}
