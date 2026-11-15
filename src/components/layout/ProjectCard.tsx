@@ -43,7 +43,10 @@ const ProjectCard = ({ project, index, active, onActiveChange, revealed, onReady
     const image = project.image?.trim() || undefined
     const video = project.video?.trim() || undefined
     // Sem mídia o card é só o fundo branco → texto escuro pra continuar legível
+    // Sem mídia o card é só o fundo branco → texto escuro pra continuar legível
     const darkText = !image && !video
+    // dark: true no Mongo → o vidro do box fica escuro (texto branco legível sobre mídia clara)
+    const darkGlass = project.dark === true
     const github = toUrl(project.github)
     const live = toUrl(project.live)
 
@@ -120,7 +123,7 @@ const ProjectCard = ({ project, index, active, onActiveChange, revealed, onReady
                     className={`rounded-[var(--radius-glass)] border-t p-5 md:p-6
                         transition-[backdrop-filter,background-color,border-color,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
                         ${active
-                            ? "translate-y-0 border-white/20 bg-white/10 backdrop-blur-md delay-100"
+                            ? `translate-y-0 backdrop-blur-md delay-100 ${darkGlass ? "border-white/10 bg-black/45" : "border-white/20 bg-white/10"}`
                             : "translate-y-3 border-transparent bg-white/0 backdrop-blur-none"}`}
                 >
                     <div
@@ -141,13 +144,13 @@ const ProjectCard = ({ project, index, active, onActiveChange, revealed, onReady
                             <div className={`flex shrink-0 gap-2 ${darkText ? "text-black" : "text-white"}`}>
                                 {github && (
                                     <a href={github} target="_blank" rel="noopener noreferrer" title="Repositório" aria-label="Repositório no GitHub"
-                                        className="flex h-9 w-9 items-center justify-center rounded-full border border-current/25 transition-colors hover:bg-white/15">
+                                        className={`flex h-9 w-9 items-center justify-center rounded-full border border-current/25 transition-colors ${darkText ? "hover:bg-black/10" : "hover:bg-white/15"}`}>
                                         <GithubIcon size={18} />
                                     </a>
                                 )}
                                 {live && (
                                     <a href={live} target="_blank" rel="noopener noreferrer" title="Ver online" aria-label="Abrir o site do projeto"
-                                        className="flex h-9 w-9 items-center justify-center rounded-full border border-current/25 transition-colors hover:bg-white/15">
+                                        className={`flex h-9 w-9 items-center justify-center rounded-full border border-current/25 transition-colors ${darkText ? "hover:bg-black/10" : "hover:bg-white/15"}`}>
                                         <GlobeIcon />
                                     </a>
                                 )}

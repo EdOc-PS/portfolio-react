@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
-import { motion } from "motion/react"
+import { AnimatePresence, motion } from "motion/react"
 import { ABOUT } from "@/data/about"
 import { revealFromCenter } from "@/lib/motion"
 import { GetRequest } from "@/service/getRequest"
-import { fetchPhrase, getCachedPhrase, type Phrase } from "@/service/phrase"
+import { fetchPhrase, fetchRandomPhrase, getCachedPhrase, type Phrase } from "@/service/phrase"
+
+/** De quanto em quanto tempo o card "Momentos que marcaram" sorteia outra frase */
+const PHRASE_INTERVAL_MS = 15_000
 import PeekSticker from "@/components/ui/PeekSticker"
 import ContactModal from "@/components/ui/ContactModal"
 
@@ -41,6 +44,17 @@ const About = () => {
         })
     }, [])
 
+    // A cada 15s sorteia outra frase (tenta de novo se vier a mesma); só se o back estiver respondendo
+    useEffect(() => {
+        if (!phrase) return
+        const id = setInterval(async () => {
+            let next = await fetchRandomPhrase()
+            if (next && next.text === phrase.text) next = await fetchRandomPhrase()
+            if (next && next.text !== phrase.text) setPhrase(next)
+        }, PHRASE_INTERVAL_MS)
+        return () => clearInterval(id)
+    }, [phrase])
+
     return (
         <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:h-full md:grid-cols-4 md:grid-rows-[1.45fr_1fr]">
             {/* ── Linha de cima ── */}
@@ -56,9 +70,13 @@ const About = () => {
                 <div className="relative">
                     <div className="mb-1 text-xl font-medium text-accent-lime">{hero.kicker}</div>
                     {/* Ano + frase só aparecem quando a resposta chega (fade); até lá o espaço fica reservado */}
+                    {/* Troca de frase: a antiga sai subindo e some, a nova entra de baixo */}
+                    <AnimatePresence mode="wait" initial={false}>
                     <motion.div
-                        initial={false}
+                        key={phraseReady ? `${hero.year}-${hero.text}` : "carregando"}
+                        initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: phraseReady ? 1 : 0, y: phraseReady ? 0 : 8 }}
+                        exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
                     >
                         <div className="-ml-1 text-7xl font-bold leading-[0.85] tracking-tighter xl:text-[112px]" style={display}>
@@ -68,6 +86,7 @@ const About = () => {
                             <p className="text-sm font-medium opacity-90 lg:text-base">{hero.text}</p>
                         </div>
                     </motion.div>
+                    </AnimatePresence>
                 </div>
             </motion.div>
 

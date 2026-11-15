@@ -22,5 +22,11 @@ export const fetchPhrase = () => {
     return promise
 }
 
+/** Sorteia uma frase nova (sem cache) — usado na troca automática a cada 15s */
+export const fetchRandomPhrase = async (): Promise<Phrase | null> => {
+    const data = await GetRequest("/api/phrases/random")
+    return data?.phrase ?? null
+}
+
 /** Resultado já disponível (sem esperar), ou undefined se ainda está carregando */
 export const getCachedPhrase = () => resolved

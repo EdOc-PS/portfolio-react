@@ -3,6 +3,8 @@ export interface Project {
     title: string
     /** Linha embaixo do título no card, ex.: "Landing page · React" */
     subtitle?: string
+    /** true = vidro escuro no box do card (mídia clara). false ou ausente = vidro claro padrão */
+    dark?: boolean
     description: string
     technologies: string[]
     github?: string

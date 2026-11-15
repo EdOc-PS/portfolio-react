@@ -1,10 +1,14 @@
 import type { ComponentType } from "react"
-import { _React, TypescriptIcon, Javascript, MongodbIcon, NodejsIcon, GoogleGmail, ClaudeIcon } from "@dev.icons/react"
+import { _React, TypescriptIcon, Javascript, MongodbIcon, NodejsIcon, GoogleGmail, ClaudeIcon, Java, Nestjs } from "@dev.icons/react"
 // Logos originalmente pretos (somem no fundo escuro) → versão mono, herda o branco
 import { Express, NextjsIcon, GithubIcon } from "@dev.icons/react/mono"
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon"
 
 type Icon = ComponentType<{ size?: number; className?: string }>
+
+/** Ano em que comecei a programar — o card "Programando há" calcula os anos sozinho */
+const CODING_SINCE = 2020
+const codingYears = new Date().getFullYear() - CODING_SINCE
 
 /** Conteúdo da aba "Sobre". Edite aqui — os componentes só leem estes dados. */
 export const ABOUT = {
@@ -37,6 +41,8 @@ export const ABOUT = {
         { name: "JavaScript", icon: Javascript },
         { name: "Node.js", icon: NodejsIcon },
         { name: "Express", icon: Express },
+        { name: "NestJS", icon: Nestjs },
+        { name: "Java", icon: Java },
         { name: "MongoDB", icon: MongodbIcon },
         { name: "Claude / Claude Code", icon: ClaudeIcon },
     ] satisfies { name: string; icon: Icon }[],
@@ -48,8 +54,8 @@ export const ABOUT = {
     },
     stats: {
         label: "Programando há",
-        value: "4 anos",
-        badge: "Desde 2022",
+        value: `${codingYears} anos`,
+        badge: `Desde ${CODING_SINCE}`,
     },
     socials: [
         { name: "GitHub", href: "https://github.com/EdOc-PS", icon: GithubIcon },
